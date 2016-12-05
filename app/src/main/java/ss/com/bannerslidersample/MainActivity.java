@@ -1,22 +1,27 @@
 package ss.com.bannerslidersample;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.graphics.drawable.VectorDrawableCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import ss.com.bannerslider.views.BannerSlider;
 import ss.com.bannerslider.banners.DrawableBanner;
 import ss.com.bannerslider.banners.RemoteBanner;
 import ss.com.bannerslider.events.OnBannerClickListener;
+import ss.com.bannerslider.views.BannerSlider;
 import ss.com.bannerslider.views.indicators.IndicatorShape;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,6 +31,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupToolbar();
+
+        ImageView githubSourceImageView = (ImageView) findViewById(R.id.image_github);
+        githubSourceImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://github.com/saeedsh92/Banner-Slider");
+
+                if (Build.VERSION.SDK_INT>15) {
+                    CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
+                    intentBuilder.setToolbarColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimary));
+                    intentBuilder.setSecondaryToolbarColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimaryDark));
+                    intentBuilder.setStartAnimations(MainActivity.this, android.R.anim.fade_in, android.R.anim.fade_out);
+                    intentBuilder.setExitAnimations(MainActivity.this, android.R.anim.fade_in, android.R.anim.fade_out);
+                    CustomTabsIntent customTabsIntent = intentBuilder.build();
+                    customTabsIntent.launchUrl(MainActivity.this, uri);
+                }else {
+                    startActivity(Intent.createChooser(new Intent(Intent.ACTION_VIEW,uri),"Choose Browser..."));
+                }
+
+            }
+        });
 
         final BannerSlider bannerSlider1 = (BannerSlider) findViewById(R.id.banner_slider1);
         final BannerSlider bannerSlider2 = (BannerSlider) findViewById(R.id.banner_slider2);
@@ -48,21 +74,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        List<String> indicatorsList=new ArrayList<>();
+        List<String> indicatorsList = new ArrayList<>();
         indicatorsList.add("Circle");
         indicatorsList.add("Dash");
         indicatorsList.add("Round Square");
         indicatorsList.add("Square");
         indicatorsList.add("Custom");
 
-        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,indicatorsList);
-        Spinner spinner=(Spinner)findViewById(R.id.spinner);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, indicatorsList);
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setAdapter(arrayAdapter);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                switch (i){
+                switch (i) {
                     case 0:
                         bannerSlider1.setDefaultIndicator(IndicatorShape.CIRCLE);
                         break;
@@ -76,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
                         bannerSlider1.setDefaultIndicator(IndicatorShape.SQUARE);
                         break;
                     case 4:
-                        bannerSlider1.setCustomIndicator(VectorDrawableCompat.create(getResources(),R.drawable.selected_slide_indicator,null),
-                                VectorDrawableCompat.create(getResources(),R.drawable.unselected_slide_indicator,null));
+                        bannerSlider1.setCustomIndicator(VectorDrawableCompat.create(getResources(), R.drawable.selected_slide_indicator, null),
+                                VectorDrawableCompat.create(getResources(), R.drawable.unselected_slide_indicator, null));
                 }
             }
 

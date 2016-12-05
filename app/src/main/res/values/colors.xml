@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@android:color/white</color>
+    <color name="colorPrimary">#FF3D00</color>
     <color name="colorPrimaryDark">#aaaaaa</color>
     <color name="colorAccent">#FF4081</color>
     <color name="toolbarColor">#eeee</color>
