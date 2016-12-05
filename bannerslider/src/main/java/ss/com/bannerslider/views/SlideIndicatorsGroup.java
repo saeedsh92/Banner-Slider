@@ -45,15 +45,15 @@ public class SlideIndicatorsGroup extends LinearLayout implements OnSlideChangeL
         setup();
     }
 
-    public void setSlides(int slidesCount){
+    public void setSlides(int slidesCount) {
         removeAllViews();
         indicatorShapes.removeAll(indicatorShapes);
 
-        this.slidesCount=0;
+        this.slidesCount = 0;
         for (int i = 0; i < slidesCount; i++) {
             onSlideAdd();
         }
-        this.slidesCount=slidesCount;
+        this.slidesCount = slidesCount;
     }
 
     public void onSlideAdd() {
@@ -133,14 +133,14 @@ public class SlideIndicatorsGroup extends LinearLayout implements OnSlideChangeL
         }
     }
 
-    public void changeIndicator(int defaultIndicator){
-        this.defaultIndicator=defaultIndicator;
-        selectedSlideIndicator=null;
-        unselectedSlideIndicator=null;
+    public void changeIndicator(int defaultIndicator) {
+        this.defaultIndicator = defaultIndicator;
+        selectedSlideIndicator = null;
+        unselectedSlideIndicator = null;
         setSlides(slidesCount);
     }
 
-    public void changeIndicator(Drawable selectedSlideIndicator,Drawable unselectedSlideIndicator){
+    public void changeIndicator(Drawable selectedSlideIndicator, Drawable unselectedSlideIndicator) {
         this.selectedSlideIndicator = selectedSlideIndicator;
         this.unselectedSlideIndicator = unselectedSlideIndicator;
         setSlides(slidesCount);

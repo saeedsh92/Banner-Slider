@@ -10,11 +10,9 @@ android {
         minSdkVersion 9
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
-        vectorDrawables.useSupportLibrary = true
+        versionName "1.1"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
 
     }
     buildTypes {
@@ -26,7 +24,9 @@ android {
 }
 
 dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
 }
+
 

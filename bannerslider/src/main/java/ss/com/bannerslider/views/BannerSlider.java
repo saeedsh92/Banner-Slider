@@ -30,7 +30,7 @@ import ss.com.bannerslider.views.indicators.IndicatorShape;
  * @since 11/23/16
  */
 
-public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeListener{
+public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeListener {
     private static final String TAG = "BannerSlider";
     private List<Banner> banners = new ArrayList<>();
     private AppCompatActivity hostActivity;
@@ -46,10 +46,10 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
     private boolean mustLoopSlides;
 
     private SlideIndicatorsGroup slideIndicatorsGroup;
-    private int slideShowInterval=1000;
+    private int slideShowInterval = 1000;
     private Timer timer;
     private BannerAdapter bannerAdapter;
-    private int defaultBanner =0;
+    private int defaultBanner = 0;
     @LayoutRes
     private int emptyView;
 
@@ -87,7 +87,7 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                 defaultBanner = typedArray.getInteger(R.styleable.BannerSlider_defaultBanner, defaultBanner);
                 emptyView = typedArray.getResourceId(R.styleable.BannerSlider_emptyView, 0);
                 Log.e(TAG, "parseCustomAttributes: ");
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             } finally {
                 typedArray.recycle();
@@ -117,8 +117,8 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                     viewPager = new ViewPager(getContext());
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                         viewPager.setId(View.generateViewId());
-                    }else {
-                        int id=Math.abs(new Random().nextInt((5000-1000)+1)+1000);
+                    } else {
+                        int id = Math.abs(new Random().nextInt((5000 - 1000) + 1) + 1000);
                         viewPager.setId(id);
                     }
                     viewPager.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -129,7 +129,7 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                     viewPager.setAdapter(bannerAdapter);
                     bannerAdapter.setEmptyView(emptyView);
 
-                    slideIndicatorsGroup=new SlideIndicatorsGroup(getContext(),selectedSlideIndicator,unSelectedSlideIndicator,defaultIndicator,indicatorSize,mustAnimateIndicators);
+                    slideIndicatorsGroup = new SlideIndicatorsGroup(getContext(), selectedSlideIndicator, unSelectedSlideIndicator, defaultIndicator, indicatorSize, mustAnimateIndicators);
                     addView(slideIndicatorsGroup);
 
                     setupTimer();
@@ -148,9 +148,9 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                 banner.setPosition(banners.size() - 1);
                 banner.setOnBannerClickListener(onBannerClickListener);
                 slideIndicatorsGroup.onSlideAdd();
-                if (banners.size()==1 && defaultBanner==0){
+                if (banners.size() == 1 && defaultBanner == 0) {
                     slideIndicatorsGroup.onSlideChange(0);
-                    if (mustLoopSlides){
+                    if (mustLoopSlides) {
                         viewPager.setCurrentItem(1);
                     }
                 }
@@ -189,49 +189,49 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
 
     @Override
     public void onPageSelected(int position) {
-        if (mustLoopSlides){
-            if (position==0){
+        if (mustLoopSlides) {
+            if (position == 0) {
                 postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        viewPager.setCurrentItem(banners.size(),false);
+                        viewPager.setCurrentItem(banners.size(), false);
                     }
-                },400);
-                if (slideIndicatorsGroup!=null){
-                    slideIndicatorsGroup.onSlideChange(banners.size()-1);
+                }, 400);
+                if (slideIndicatorsGroup != null) {
+                    slideIndicatorsGroup.onSlideChange(banners.size() - 1);
                 }
-            }else if (position==banners.size()+1){
+            } else if (position == banners.size() + 1) {
                 postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        viewPager.setCurrentItem(1,false);
+                        viewPager.setCurrentItem(1, false);
                     }
-                },400);
-                if (slideIndicatorsGroup!=null){
+                }, 400);
+                if (slideIndicatorsGroup != null) {
                     slideIndicatorsGroup.onSlideChange(0);
                 }
-            }else {
-                if (slideIndicatorsGroup!=null){
-                    slideIndicatorsGroup.onSlideChange(position-1);
+            } else {
+                if (slideIndicatorsGroup != null) {
+                    slideIndicatorsGroup.onSlideChange(position - 1);
                 }
             }
-        }else {
+        } else {
             slideIndicatorsGroup.onSlideChange(position);
         }
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
-        switch (state){
+        switch (state) {
             case ViewPager.SCROLL_STATE_DRAGGING:
-                if (timer!=null) {
+                if (timer != null) {
                     timer.cancel();
                     timer.purge();
                     timer = null;
                 }
                 break;
             case ViewPager.SCROLL_STATE_IDLE:
-                if (timer==null){
+                if (timer == null) {
                     setupTimer();
                 }
 
@@ -239,9 +239,9 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
         }
     }
 
-    private void setupTimer(){
-        if (slideShowInterval>0){
-            timer=new Timer();
+    private void setupTimer() {
+        if (slideShowInterval > 0) {
+            timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
@@ -254,49 +254,49 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                                 } else {
                                     viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
                                 }
-                            }else {
-                                viewPager.setCurrentItem(viewPager.getCurrentItem()+1,true);
+                            } else {
+                                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
                             }
                         }
                     });
                 }
-            },slideShowInterval,slideShowInterval);
+            }, slideShowInterval, slideShowInterval);
         }
     }
 
-    public void setDefaultIndicator(final int indicator){
+    public void setDefaultIndicator(final int indicator) {
         post(new Runnable() {
             @Override
             public void run() {
-                defaultIndicator=indicator;
+                defaultIndicator = indicator;
                 slideIndicatorsGroup.changeIndicator(indicator);
-                if (mustLoopSlides){
-                    if (viewPager.getCurrentItem()==0){
+                if (mustLoopSlides) {
+                    if (viewPager.getCurrentItem() == 0) {
                         postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                viewPager.setCurrentItem(banners.size(),false);
+                                viewPager.setCurrentItem(banners.size(), false);
                             }
-                        },400);
-                        if (slideIndicatorsGroup!=null){
-                            slideIndicatorsGroup.onSlideChange(banners.size()-1);
+                        }, 400);
+                        if (slideIndicatorsGroup != null) {
+                            slideIndicatorsGroup.onSlideChange(banners.size() - 1);
                         }
-                    }else if (viewPager.getCurrentItem()==banners.size()+1){
+                    } else if (viewPager.getCurrentItem() == banners.size() + 1) {
                         postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                viewPager.setCurrentItem(1,false);
+                                viewPager.setCurrentItem(1, false);
                             }
-                        },400);
-                        if (slideIndicatorsGroup!=null){
+                        }, 400);
+                        if (slideIndicatorsGroup != null) {
                             slideIndicatorsGroup.onSlideChange(0);
                         }
-                    }else {
-                        if (slideIndicatorsGroup!=null){
-                            slideIndicatorsGroup.onSlideChange(viewPager.getCurrentItem()-1);
+                    } else {
+                        if (slideIndicatorsGroup != null) {
+                            slideIndicatorsGroup.onSlideChange(viewPager.getCurrentItem() - 1);
                         }
                     }
-                }else {
+                } else {
                     slideIndicatorsGroup.onSlideChange(viewPager.getCurrentItem());
                 }
             }
@@ -304,37 +304,37 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
 
     }
 
-    public void setCustomIndicator(Drawable selectedSlideIndicator,Drawable unSelectedSlideIndicator){
-        this.selectedSlideIndicator=selectedSlideIndicator;
-        this.unSelectedSlideIndicator=unSelectedSlideIndicator;
-        slideIndicatorsGroup.changeIndicator(selectedSlideIndicator,unSelectedSlideIndicator);
-        if (mustLoopSlides){
-            if (viewPager.getCurrentItem()==0){
+    public void setCustomIndicator(Drawable selectedSlideIndicator, Drawable unSelectedSlideIndicator) {
+        this.selectedSlideIndicator = selectedSlideIndicator;
+        this.unSelectedSlideIndicator = unSelectedSlideIndicator;
+        slideIndicatorsGroup.changeIndicator(selectedSlideIndicator, unSelectedSlideIndicator);
+        if (mustLoopSlides) {
+            if (viewPager.getCurrentItem() == 0) {
                 postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        viewPager.setCurrentItem(banners.size(),false);
+                        viewPager.setCurrentItem(banners.size(), false);
                     }
-                },400);
-                if (slideIndicatorsGroup!=null){
-                    slideIndicatorsGroup.onSlideChange(banners.size()-1);
+                }, 400);
+                if (slideIndicatorsGroup != null) {
+                    slideIndicatorsGroup.onSlideChange(banners.size() - 1);
                 }
-            }else if (viewPager.getCurrentItem()==banners.size()+1){
+            } else if (viewPager.getCurrentItem() == banners.size() + 1) {
                 postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        viewPager.setCurrentItem(1,false);
+                        viewPager.setCurrentItem(1, false);
                     }
-                },400);
-                if (slideIndicatorsGroup!=null){
+                }, 400);
+                if (slideIndicatorsGroup != null) {
                     slideIndicatorsGroup.onSlideChange(0);
                 }
-            }else {
-                if (slideIndicatorsGroup!=null){
-                    slideIndicatorsGroup.onSlideChange(viewPager.getCurrentItem()-1);
+            } else {
+                if (slideIndicatorsGroup != null) {
+                    slideIndicatorsGroup.onSlideChange(viewPager.getCurrentItem() - 1);
                 }
             }
-        }else {
+        } else {
             slideIndicatorsGroup.onSlideChange(viewPager.getCurrentItem());
         }
     }

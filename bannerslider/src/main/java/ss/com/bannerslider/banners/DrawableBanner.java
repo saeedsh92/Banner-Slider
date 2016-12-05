@@ -13,9 +13,10 @@ import android.support.annotation.DrawableRes;
 public class DrawableBanner extends Banner implements Parcelable {
     private int drawable;
 
-    public DrawableBanner(@DrawableRes int drawable){
-        this.drawable=drawable;
+    public DrawableBanner(@DrawableRes int drawable) {
+        this.drawable = drawable;
     }
+
     public int getDrawable() {
         return drawable;
     }
@@ -46,7 +47,6 @@ public class DrawableBanner extends Banner implements Parcelable {
             return new DrawableBanner[size];
         }
     };
-
 
 
 }

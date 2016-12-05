@@ -35,17 +35,17 @@ public class BannerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if (banners.size()==0 && emptyView>0){
+        if (banners.size() == 0 && emptyView > 0) {
             return EmptyViewFragment.newInstance(emptyView);
         }
         if (isLooping) {
-                if (position == 0) {
-                    return BannerFragment.newInstance(banners.get(banners.size() - 1));
-                } else if (position == banners.size() + 1) {
-                    return BannerFragment.newInstance(banners.get(0));
-                } else {
-                    return BannerFragment.newInstance(banners.get(position - 1));
-                }
+            if (position == 0) {
+                return BannerFragment.newInstance(banners.get(banners.size() - 1));
+            } else if (position == banners.size() + 1) {
+                return BannerFragment.newInstance(banners.get(0));
+            } else {
+                return BannerFragment.newInstance(banners.get(position - 1));
+            }
         } else {
             return BannerFragment.newInstance(banners.get(position));
         }
@@ -54,9 +54,9 @@ public class BannerAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getCount() {
         if (banners.size() == 0) {
-            if (emptyView>0) {
+            if (emptyView > 0) {
                 return 1;
-            }else {
+            } else {
                 return 0;
             }
         }

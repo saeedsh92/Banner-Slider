@@ -20,18 +20,18 @@ public class EmptyViewFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        layout=getArguments().getInt("layout");
+        layout = getArguments().getInt("layout");
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return LayoutInflater.from(getActivity()).inflate(layout,container,false);
+        return LayoutInflater.from(getActivity()).inflate(layout, container, false);
     }
 
     public static EmptyViewFragment newInstance(@LayoutRes int layout) {
         Bundle args = new Bundle();
-        args.putInt("layout",layout);
+        args.putInt("layout", layout);
         EmptyViewFragment fragment = new EmptyViewFragment();
         fragment.setArguments(args);
         return fragment;

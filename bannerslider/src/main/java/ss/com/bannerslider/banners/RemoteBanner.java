@@ -14,8 +14,8 @@ public class RemoteBanner extends Banner implements Parcelable {
     private Drawable placeHolder;
     private Drawable errorDrawable;
 
-    public RemoteBanner(String url){
-        this.url=url;
+    public RemoteBanner(String url) {
+        this.url = url;
     }
 
     public String getUrl() {

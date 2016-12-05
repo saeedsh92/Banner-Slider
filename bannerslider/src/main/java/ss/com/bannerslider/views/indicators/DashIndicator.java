@@ -2,7 +2,6 @@ package ss.com.bannerslider.views.indicators;
 
 import android.content.Context;
 import android.support.v4.content.res.ResourcesCompat;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import ss.com.bannerslider.R;
@@ -18,9 +17,9 @@ public class DashIndicator extends IndicatorShape {
     public DashIndicator(Context context, int indicatorSize, boolean mustAnimateChanges) {
         super(context, indicatorSize, mustAnimateChanges);
         setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.indicator_dash_unselected, null));
-        LinearLayout.LayoutParams layoutParams= (LinearLayout.LayoutParams) getLayoutParams();
-        if (layoutParams!=null){
-            layoutParams.width=getResources().getDimensionPixelSize(R.dimen.default_dash_indicator_width);
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) getLayoutParams();
+        if (layoutParams != null) {
+            layoutParams.width = getResources().getDimensionPixelSize(R.dimen.default_dash_indicator_width);
             setLayoutParams(layoutParams);
         }
     }

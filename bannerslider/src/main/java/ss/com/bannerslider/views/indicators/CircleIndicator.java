@@ -14,11 +14,11 @@ import ss.com.bannerslider.R;
 
 public class CircleIndicator extends IndicatorShape {
 
-    public CircleIndicator(Context context, int indicatorSize,boolean mustAnimateChanges) {
-        super(context, indicatorSize,mustAnimateChanges );
+    public CircleIndicator(Context context, int indicatorSize, boolean mustAnimateChanges) {
+        super(context, indicatorSize, mustAnimateChanges);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.indicator_circle_unselected,null));
-        }else {
+            setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.indicator_circle_unselected, null));
+        } else {
             setBackgroundDrawable(getResources().getDrawable(R.drawable.indicator_circle_unselected));
         }
     }
@@ -26,16 +26,16 @@ public class CircleIndicator extends IndicatorShape {
     @Override
     public void onCheckedChange(boolean isChecked) {
         super.onCheckedChange(isChecked);
-        if (isChecked){
+        if (isChecked) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.indicator_circle_selected,null));
-            }else {
+                setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.indicator_circle_selected, null));
+            } else {
                 setBackgroundDrawable(getResources().getDrawable(R.drawable.indicator_circle_selected));
             }
-        }else {
+        } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.indicator_circle_unselected,null));
-            }else {
+                setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.indicator_circle_unselected, null));
+            } else {
                 setBackgroundDrawable(getResources().getDrawable(R.drawable.indicator_circle_unselected));
             }
         }
