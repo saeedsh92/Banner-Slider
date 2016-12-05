@@ -2,8 +2,8 @@
 <resources>
     <declare-styleable name="BannerSlider">
         <attr name="indicatorSize" format="dimension" />
-        <attr name="selected_slideIndicator" format="integer|reference" />
-        <attr name="unselected_slideIndicator" format="integer|reference" />
+        <attr name="selected_slideIndicator" format="reference" />
+        <attr name="unselected_slideIndicator" format="reference" />
         <attr name="defaultIndicators" format="integer">
             <enum name="circle" value="0" />
             <enum name="square" value="1" />

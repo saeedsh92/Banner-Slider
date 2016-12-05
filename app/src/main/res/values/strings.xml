@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">BannerSliderSample</string>
+    <string name="label_loading">Please Wait...</string>
+    <array name="page_indicators">
+        <item>Circle</item>
+        <item>Dash</item>
+        <item>Round Square</item>
+        <item>Square</item>
+        <item>Custom</item>
+    </array>
 </resources>

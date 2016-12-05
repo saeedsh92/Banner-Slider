@@ -1,71 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ss.com.bannerslidersample.MainActivity">
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            >
+            android:layout_height="?actionBarSize">
+
             <ImageView
                 android:id="@+id/image_github"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_github_circle_black_48dp"
-                android:layout_marginRight="8dp"
                 android:layout_gravity="right"
-                />
+                android:layout_marginRight="8dp"
+                android:src="@drawable/ic_github_circle_black_48dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="@android:color/black"
-                android:text="Banner Slider"
-                android:gravity="center_vertical|left"
                 android:fontFamily="sans-serif-bold"
-                android:textSize="18sp"
-                />
+                android:gravity="center_vertical|left"
+                android:text="Banner Slider"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        >
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <android.support.v7.widget.CardView
+                style="@style/CardView.SS"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/CardView.SS">
+                android:layout_height="wrap_content">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <RelativeLayout
                         android:id="@+id/container_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="12dp">
+
                         <TextView
-                            android:id="@+id/label_spinner"
+                            android:id="@+id/text_label_page_indicator"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:text="Page Indicator: "/>
+                            android:text="Page Indicator: " />
+
                         <Spinner
-                            android:id="@+id/spinner"
+                            android:id="@+id/spinner_page_indicator"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_toRightOf="@id/label_spinner"/>
+                            android:layout_toRightOf="@id/text_label_page_indicator" />
                     </RelativeLayout>
 
                     <ss.com.bannerslider.views.BannerSlider
@@ -73,39 +80,43 @@
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
                         android:layout_below="@id/container_spinner"
+                        app:animateIndicators="true"
+                        app:defaultIndicators="circle"
                         app:interval="5000"
-                        app:loopSlides="true"
-                        />
+                        app:loopSlides="true" />
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
                         android:layout_below="@id/banner_slider1"
                         android:padding="12dp">
+
                         <ImageView
                             android:id="@+id/image_logo"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:layout_alignParentLeft="true"
-                            android:src="@drawable/material_up_logo"
-                            />
+                            android:src="@drawable/ic_material_up" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="8dp"
-                            android:gravity="center"
                             android:layout_toRightOf="@id/image_logo"
+                            android:gravity="center"
                             android:orientation="vertical">
+
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textColor="@android:color/black"
                                 android:text="Material Design Apps"
-                                />
+                                android:textColor="@android:color/black" />
+
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="by MaterialUp"/>
+                                android:text="by MaterialUp" />
                         </LinearLayout>
 
                     </RelativeLayout>
@@ -113,19 +124,20 @@
 
 
             </android.support.v7.widget.CardView>
+
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/CardView.SS">
+
                 <ss.com.bannerslider.views.BannerSlider
                     android:id="@+id/banner_slider2"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     app:defaultIndicators="round_square"
-                    app:indicatorSize="8dp"
                     app:emptyView="@layout/layout_empty_view"
-                    app:loopSlides="true"
-                    />
+                    app:indicatorSize="8dp"
+                    app:loopSlides="true" />
             </android.support.v7.widget.CardView>
 
         </LinearLayout>

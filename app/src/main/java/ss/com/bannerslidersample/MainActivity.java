@@ -15,9 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
 import ss.com.bannerslider.banners.DrawableBanner;
 import ss.com.bannerslider.banners.RemoteBanner;
 import ss.com.bannerslider.events.OnBannerClickListener;
@@ -25,12 +22,25 @@ import ss.com.bannerslider.views.BannerSlider;
 import ss.com.bannerslider.views.indicators.IndicatorShape;
 
 public class MainActivity extends AppCompatActivity {
+    private BannerSlider bannerSlider1;
+    private BannerSlider bannerSlider2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setupViews();
+    }
+
+    private void setupViews() {
         setupToolbar();
+        setupBannerSlider();
+        setupPageIndicatorChooser();
+    }
+
+    private void setupToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         ImageView githubSourceImageView = (ImageView) findViewById(R.id.image_github);
         githubSourceImageView.setOnClickListener(new View.OnClickListener() {
@@ -52,20 +62,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
 
-        final BannerSlider bannerSlider1 = (BannerSlider) findViewById(R.id.banner_slider1);
-        final BannerSlider bannerSlider2 = (BannerSlider) findViewById(R.id.banner_slider2);
-
-        bannerSlider1.addBanner(new RemoteBanner("https://assets.materialup.com/uploads/dcc07ea4-845a-463b-b5f0-4696574da5ed/preview.jpg"));
-        bannerSlider1.addBanner(new RemoteBanner("https://assets.materialup.com/uploads/4b88d2c1-9f95-4c51-867b-bf977b0caa8c/preview.gif"));
-        bannerSlider1.addBanner(new RemoteBanner("https://assets.materialup.com/uploads/76d63bbc-54a1-450a-a462-d90056be881b/preview.png"));
-        bannerSlider1.addBanner(new RemoteBanner("https://assets.materialup.com/uploads/05e9b7d9-ade2-4aed-9cb4-9e24e5a3530d/preview.jpg"));
-
-
-        bannerSlider2.addBanner(new DrawableBanner(R.drawable.creative_kids));
-        bannerSlider2.addBanner(new DrawableBanner(R.drawable.mat_design));
-        bannerSlider2.addBanner(new DrawableBanner(R.drawable.instant_banner));
-        bannerSlider2.addBanner(new DrawableBanner(R.drawable.material_android_hive));
+    private void setupBannerSlider(){
+        bannerSlider1 = (BannerSlider) findViewById(R.id.banner_slider1);
+        bannerSlider2 = (BannerSlider) findViewById(R.id.banner_slider2);
+        addBanners();
 
         bannerSlider1.setOnBannerClickListener(new OnBannerClickListener() {
             @Override
@@ -73,16 +75,38 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Banner with position " + String.valueOf(position) + " clicked!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    private void addBanners(){
+        //Add banners using image urls
+        bannerSlider1.addBanner(new RemoteBanner(
+                "https://assets.materialup.com/uploads/dcc07ea4-845a-463b-b5f0-4696574da5ed/preview.jpg"
+        ));
+        bannerSlider1.addBanner(new RemoteBanner(
+                "https://assets.materialup.com/uploads/4b88d2c1-9f95-4c51-867b-bf977b0caa8c/preview.gif"
+        ));
+        bannerSlider1.addBanner(new RemoteBanner(
+                "https://assets.materialup.com/uploads/76d63bbc-54a1-450a-a462-d90056be881b/preview.png"
+        ));
+        bannerSlider1.addBanner(new RemoteBanner(
+                "https://assets.materialup.com/uploads/05e9b7d9-ade2-4aed-9cb4-9e24e5a3530d/preview.jpg"
+        ));
 
-        List<String> indicatorsList = new ArrayList<>();
-        indicatorsList.add("Circle");
-        indicatorsList.add("Dash");
-        indicatorsList.add("Round Square");
-        indicatorsList.add("Square");
-        indicatorsList.add("Custom");
+        //Add banners using resources
+        bannerSlider2.addBanner(new DrawableBanner(R.drawable.banner_creative_kids));
+        bannerSlider2.addBanner(new DrawableBanner(R.drawable.banner_material_design));
+        bannerSlider2.addBanner(new DrawableBanner(R.drawable.banner_instant));
+        bannerSlider2.addBanner(new DrawableBanner(R.drawable.banner_material_android_hive));
+    }
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, indicatorsList);
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+    private void setupPageIndicatorChooser(){
+
+        String[] pageIndicatorsLabels= getResources().getStringArray(R.array.page_indicators);
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item,
+                pageIndicatorsLabels
+        );
+        Spinner spinner = (Spinner) findViewById(R.id.spinner_page_indicator);
         spinner.setAdapter(arrayAdapter);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -102,20 +126,16 @@ public class MainActivity extends AppCompatActivity {
                         bannerSlider1.setDefaultIndicator(IndicatorShape.SQUARE);
                         break;
                     case 4:
-                        bannerSlider1.setCustomIndicator(VectorDrawableCompat.create(getResources(), R.drawable.selected_slide_indicator, null),
-                                VectorDrawableCompat.create(getResources(), R.drawable.unselected_slide_indicator, null));
+                        bannerSlider1.setCustomIndicator(VectorDrawableCompat.create(getResources(),
+                                R.drawable.selected_slide_indicator, null),
+                                VectorDrawableCompat.create(getResources(),
+                                        R.drawable.unselected_slide_indicator, null));
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
-    }
-
-    private void setupToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
     }
 }

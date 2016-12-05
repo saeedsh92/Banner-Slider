@@ -14,10 +14,10 @@ import ss.com.bannerslider.events.OnBannerClickListener;
 public class Banner implements Parcelable {
     private int id;
     private int position;
-    private ImageView.ScaleType scaleType= ImageView.ScaleType.CENTER_CROP;
+    private ImageView.ScaleType scaleType = ImageView.ScaleType.CENTER_CROP;
     private OnBannerClickListener onBannerClickListener;
 
-    public Banner(){
+    public Banner() {
 
     }
 
@@ -79,12 +79,12 @@ public class Banner implements Parcelable {
         }
     };
 
-    public Banner setOnBannerClickListener(OnBannerClickListener onBannerClickListener){
-        this.onBannerClickListener=onBannerClickListener;
+    public Banner setOnBannerClickListener(OnBannerClickListener onBannerClickListener) {
+        this.onBannerClickListener = onBannerClickListener;
         return this;
     }
 
-    public OnBannerClickListener getOnBannerClickListener(){
+    public OnBannerClickListener getOnBannerClickListener() {
         return this.onBannerClickListener;
     }
 }

@@ -111,8 +111,6 @@ public class SlideIndicatorsGroup extends LinearLayout implements OnSlideChangeL
                     break;
             }
         }
-
-
     }
 
     public void setup() {

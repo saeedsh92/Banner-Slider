@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -81,11 +82,13 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                 unSelectedSlideIndicator = typedArray.getDrawable(R.styleable.BannerSlider_unselected_slideIndicator);
                 defaultIndicator = typedArray.getInt(R.styleable.BannerSlider_defaultIndicators, IndicatorShape.DASH);
                 mustAnimateIndicators = typedArray.getBoolean(R.styleable.BannerSlider_animateIndicators, true);
-                slideShowInterval=typedArray.getInt(R.styleable.BannerSlider_interval,0);
-                mustLoopSlides =typedArray.getBoolean(R.styleable.BannerSlider_loopSlides,false);
-                defaultBanner =typedArray.getInteger(R.styleable.BannerSlider_defaultBanner, defaultBanner);
-                emptyView=typedArray.getResourceId(R.styleable.BannerSlider_emptyView,0);
-                Log.e(TAG, "parseCustomAttributes: " );
+                slideShowInterval = typedArray.getInt(R.styleable.BannerSlider_interval, 0);
+                mustLoopSlides = typedArray.getBoolean(R.styleable.BannerSlider_loopSlides, false);
+                defaultBanner = typedArray.getInteger(R.styleable.BannerSlider_defaultBanner, defaultBanner);
+                emptyView = typedArray.getResourceId(R.styleable.BannerSlider_emptyView, 0);
+                Log.e(TAG, "parseCustomAttributes: ");
+            }catch (Exception e){
+                e.printStackTrace();
             } finally {
                 typedArray.recycle();
             }
@@ -112,7 +115,12 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                         throw new RuntimeException("Host activity must extend AppCompatActivity");
                     }
                     viewPager = new ViewPager(getContext());
-                    viewPager.setId(View.generateViewId());
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                        viewPager.setId(View.generateViewId());
+                    }else {
+                        int id=Math.abs(new Random().nextInt((5000-1000)+1)+1000);
+                        viewPager.setId(id);
+                    }
                     viewPager.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                     viewPager.addOnPageChangeListener(BannerSlider.this);
                     addView(viewPager);
@@ -256,38 +264,44 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
         }
     }
 
-    public void setDefaultIndicator(int indicator){
-        this.defaultIndicator=indicator;
-        slideIndicatorsGroup.changeIndicator(indicator);
-        if (mustLoopSlides){
-            if (viewPager.getCurrentItem()==0){
-                postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        viewPager.setCurrentItem(banners.size(),false);
+    public void setDefaultIndicator(final int indicator){
+        post(new Runnable() {
+            @Override
+            public void run() {
+                defaultIndicator=indicator;
+                slideIndicatorsGroup.changeIndicator(indicator);
+                if (mustLoopSlides){
+                    if (viewPager.getCurrentItem()==0){
+                        postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                viewPager.setCurrentItem(banners.size(),false);
+                            }
+                        },400);
+                        if (slideIndicatorsGroup!=null){
+                            slideIndicatorsGroup.onSlideChange(banners.size()-1);
+                        }
+                    }else if (viewPager.getCurrentItem()==banners.size()+1){
+                        postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                viewPager.setCurrentItem(1,false);
+                            }
+                        },400);
+                        if (slideIndicatorsGroup!=null){
+                            slideIndicatorsGroup.onSlideChange(0);
+                        }
+                    }else {
+                        if (slideIndicatorsGroup!=null){
+                            slideIndicatorsGroup.onSlideChange(viewPager.getCurrentItem()-1);
+                        }
                     }
-                },400);
-                if (slideIndicatorsGroup!=null){
-                    slideIndicatorsGroup.onSlideChange(banners.size()-1);
-                }
-            }else if (viewPager.getCurrentItem()==banners.size()+1){
-                postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        viewPager.setCurrentItem(1,false);
-                    }
-                },400);
-                if (slideIndicatorsGroup!=null){
-                    slideIndicatorsGroup.onSlideChange(0);
-                }
-            }else {
-                if (slideIndicatorsGroup!=null){
-                    slideIndicatorsGroup.onSlideChange(viewPager.getCurrentItem()-1);
+                }else {
+                    slideIndicatorsGroup.onSlideChange(viewPager.getCurrentItem());
                 }
             }
-        }else {
-            slideIndicatorsGroup.onSlideChange(viewPager.getCurrentItem());
-        }
+        });
+
     }
 
     public void setCustomIndicator(Drawable selectedSlideIndicator,Drawable unSelectedSlideIndicator){
