@@ -1,5 +1,8 @@
 package ss.com.bannerslider.banners;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -54,8 +57,8 @@ public class RemoteBanner extends Banner implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(url);
-        dest.writeValue(placeHolder);
-        dest.writeValue(errorDrawable);
+        dest.writeParcelable(((BitmapDrawable)placeHolder).getBitmap(),flags);
+        dest.writeParcelable(((BitmapDrawable)errorDrawable).getBitmap(),flags);
     }
 
     @SuppressWarnings("unused")
