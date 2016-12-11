@@ -57,8 +57,12 @@ public class RemoteBanner extends Banner implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(url);
-        dest.writeParcelable(((BitmapDrawable)placeHolder).getBitmap(),flags);
-        dest.writeParcelable(((BitmapDrawable)errorDrawable).getBitmap(),flags);
+        if (placeHolder!=null) {
+            dest.writeParcelable(((BitmapDrawable) placeHolder).getBitmap(), flags);
+        }
+        if (errorDrawable!=null) {
+            dest.writeParcelable(((BitmapDrawable) errorDrawable).getBitmap(), flags);
+        }
     }
 
     @SuppressWarnings("unused")

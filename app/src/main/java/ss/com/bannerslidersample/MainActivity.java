@@ -8,11 +8,14 @@ import android.support.customtabs.CustomTabsIntent;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 import ss.com.bannerslider.banners.DrawableBanner;
@@ -36,6 +39,70 @@ public class MainActivity extends AppCompatActivity {
         setupToolbar();
         setupBannerSlider();
         setupPageIndicatorChooser();
+        setupSettingsUi();
+    }
+
+    private void setupSettingsUi() {
+        final SeekBar intervalSeekBar=(SeekBar)findViewById(R.id.seekbar_interval);
+        intervalSeekBar.setMax(10000);
+        intervalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if (b){
+                    bannerSlider1.setInterval(i);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        SeekBar indicatorSizeSeekBar=(SeekBar)findViewById(R.id.seekbar_indicator_size);
+        indicatorSizeSeekBar.setMax(getResources().getDimensionPixelSize(R.dimen.max_slider_indicator_size));
+        indicatorSizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if (b){
+                    bannerSlider1.setIndicatorSize(i);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        SwitchCompat loopSlidesSwitch=(SwitchCompat)findViewById(R.id.checkbox_loop_slides);
+        loopSlidesSwitch.setChecked(true);
+        SwitchCompat mustAnimateIndicators=(SwitchCompat)findViewById(R.id.checkbox_animate_indicators);
+        mustAnimateIndicators.setChecked(true);
+
+        loopSlidesSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                bannerSlider1.setLoopSlides(b);
+            }
+        });
+
+        mustAnimateIndicators.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                bannerSlider1.setMustAnimateIndicators(b);
+            }
+        });
     }
 
     private void setupToolbar() {

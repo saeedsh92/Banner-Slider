@@ -15,5 +15,6 @@
         <attr name="loopSlides" format="boolean"/>
         <attr name="defaultBanner" format="integer"/>
         <attr name="emptyView" format="reference"/>
+        <attr name="showIndicators" format="boolean"/>
     </declare-styleable>
 </resources>

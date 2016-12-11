@@ -52,23 +52,42 @@ public abstract class IndicatorShape extends ImageView {
                 } else {
                     descale();
                 }
+            }else {
+                if (isChecked) {
+                    scale(0);
+                } else {
+                    descale(0);
+                }
             }
             this.isChecked = isChecked;
         }
     }
 
     private void scale() {
+        scale(ANIMATION_DURATION);
+    }
+
+    private void scale(int duration) {
         ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 1.3f, 1f, 1.3f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        scaleAnimation.setDuration(ANIMATION_DURATION);
+        scaleAnimation.setDuration(duration);
         scaleAnimation.setFillAfter(true);
         startAnimation(scaleAnimation);
     }
 
+
     private void descale() {
+        descale(ANIMATION_DURATION);
+    }
+
+    private void descale(int duration) {
         ScaleAnimation scaleAnimation = new ScaleAnimation(1.3f, 1f, 1.3f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        scaleAnimation.setDuration(ANIMATION_DURATION);
+        scaleAnimation.setDuration(duration);
         scaleAnimation.setFillAfter(true);
         startAnimation(scaleAnimation);
+    }
+
+    public void setMustAnimateChange(boolean mustAnimateChange){
+        this.mustAnimateChange=mustAnimateChange;
     }
 
 

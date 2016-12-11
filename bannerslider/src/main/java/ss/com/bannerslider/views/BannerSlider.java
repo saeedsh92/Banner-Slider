@@ -30,7 +30,7 @@ import ss.com.bannerslider.views.indicators.IndicatorShape;
  * @since 11/23/16
  */
 
-public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeListener {
+public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeListener, IAttributeChange {
     private static final String TAG = "BannerSlider";
     private List<Banner> banners = new ArrayList<>();
     private AppCompatActivity hostActivity;
@@ -52,6 +52,7 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
     private int defaultBanner = 0;
     @LayoutRes
     private int emptyView;
+    private boolean showIndicators = true;
 
     public BannerSlider(Context context) {
         super(context);
@@ -86,6 +87,7 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                 mustLoopSlides = typedArray.getBoolean(R.styleable.BannerSlider_loopSlides, false);
                 defaultBanner = typedArray.getInteger(R.styleable.BannerSlider_defaultBanner, defaultBanner);
                 emptyView = typedArray.getResourceId(R.styleable.BannerSlider_emptyView, 0);
+                showIndicators = typedArray.getBoolean(R.styleable.BannerSlider_showIndicators, true);
                 Log.e(TAG, "parseCustomAttributes: ");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -129,8 +131,10 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                     viewPager.setAdapter(bannerAdapter);
                     bannerAdapter.setEmptyView(emptyView);
 
-                    slideIndicatorsGroup = new SlideIndicatorsGroup(getContext(), selectedSlideIndicator, unSelectedSlideIndicator, defaultIndicator, indicatorSize, mustAnimateIndicators);
-                    addView(slideIndicatorsGroup);
+                    if (showIndicators) {
+                        slideIndicatorsGroup = new SlideIndicatorsGroup(getContext(), selectedSlideIndicator, unSelectedSlideIndicator, defaultIndicator, indicatorSize, mustAnimateIndicators);
+                        addView(slideIndicatorsGroup);
+                    }
 
                     setupTimer();
                 }
@@ -157,29 +161,6 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
             }
         });
 
-    }
-
-    public void setCurrentSlide(final int position) {
-        post(new Runnable() {
-            @Override
-            public void run() {
-                if (viewPager != null) {
-                    viewPager.setCurrentItem(position);
-                }
-            }
-        });
-    }
-
-    public int getCurrentSlidePosition() {
-        return viewPager.getCurrentItem();
-    }
-
-    public void setOnBannerClickListener(OnBannerClickListener onBannerClickListener) {
-        this.onBannerClickListener = onBannerClickListener;
-        for (Banner banner :
-                banners) {
-            banner.setOnBannerClickListener(onBannerClickListener);
-        }
     }
 
     @Override
@@ -264,6 +245,9 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
         }
     }
 
+    // Setters
+    ///////////////////////////////////////////////////////////////////////////
+
     public void setDefaultIndicator(final int indicator) {
         post(new Runnable() {
             @Override
@@ -337,5 +321,117 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
         } else {
             slideIndicatorsGroup.onSlideChange(viewPager.getCurrentItem());
         }
+    }
+
+    public void setOnBannerClickListener(OnBannerClickListener onBannerClickListener) {
+        this.onBannerClickListener = onBannerClickListener;
+        for (Banner banner :
+                banners) {
+            banner.setOnBannerClickListener(onBannerClickListener);
+        }
+    }
+
+    public void setCurrentSlide(final int position) {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                if (viewPager != null) {
+                    viewPager.setCurrentItem(position);
+                }
+            }
+        });
+    }
+
+    public void setInterval(int interval) {
+        this.slideShowInterval = interval;
+        onIntervalChange();
+    }
+
+    public void setIndicatorSize(int indicatorSize) {
+        this.indicatorSize = indicatorSize;
+        onIndicatorSizeChange();
+    }
+
+    public void setLoopSlides(boolean loopSlides){
+        this.mustLoopSlides=loopSlides;
+    }
+
+    public void setMustAnimateIndicators(boolean mustAnimateIndicators){
+        this.mustAnimateIndicators=mustAnimateIndicators;
+        onAnimateIndicatorsChange();
+    }
+
+    // Getters
+    ///////////////////////////////////////////////////////////////////////////
+
+    public int getCurrentSlidePosition() {
+        return viewPager.getCurrentItem();
+    }
+
+    // Events
+    ///////////////////////////////////////////////////////////////////////////
+    @Override
+    public void onIndicatorSizeChange() {
+        if (showIndicators) {
+            if (slideIndicatorsGroup != null) {
+                removeView(slideIndicatorsGroup);
+            }
+            slideIndicatorsGroup = new SlideIndicatorsGroup(getContext(), selectedSlideIndicator, unSelectedSlideIndicator, defaultIndicator, indicatorSize, mustAnimateIndicators);
+            addView(slideIndicatorsGroup);
+            for (int i = 0; i < banners.size(); i++) {
+                slideIndicatorsGroup.onSlideAdd();
+            }
+        }
+    }
+
+    @Override
+    public void onSelectedSlideIndicatorChange() {
+
+    }
+
+    @Override
+    public void onUnselectedSlideIndicatorChange() {
+
+    }
+
+    @Override
+    public void onDefaultIndicatorsChange() {
+
+    }
+
+    @Override
+    public void onAnimateIndicatorsChange() {
+        if (slideIndicatorsGroup!=null) {
+            slideIndicatorsGroup.setMustAnimateIndicators(mustAnimateIndicators);
+        }
+    }
+
+    @Override
+    public void onIntervalChange() {
+        if (timer != null) {
+            timer.cancel();
+            timer.purge();
+        }
+        setupTimer();
+    }
+
+    @Override
+    public void onLoopSlidesChange() {
+
+    }
+
+    @Override
+    public void onDefaultBannerChange() {
+
+    }
+
+    @Override
+    public void onEmptyViewChange() {
+
+    }
+
+    @Override
+    public void onShowIndicatorsChange() {
+
     }
 }

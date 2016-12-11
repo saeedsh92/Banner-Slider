@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimary">#fff</color>
     <color name="colorPrimaryDark">#aaaaaa</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#2facb2</color>
     <color name="toolbarColor">#eeee</color>
+    <color name="holo_gray">#717171</color>
 </resources>
