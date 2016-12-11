@@ -188,7 +188,7 @@
                             android:layout_marginRight="@dimen/banner_slider_settings_margin"
                             android:layout_marginLeft="@dimen/banner_slider_settings_margin"
                             android:text="@string/label_loop_slides"
-
+                            android:layout_marginBottom="@dimen/standard_margin"
                             android:textColor="@color/holo_gray"
                             />
                         <android.support.v7.widget.SwitchCompat
@@ -197,7 +197,18 @@
                             android:layout_height="wrap_content"
                             android:layout_marginRight="@dimen/banner_slider_settings_margin"
                             android:layout_marginLeft="@dimen/banner_slider_settings_margin"
+                            android:layout_marginBottom="@dimen/standard_margin"
                             android:text="@string/label_animate_indicators"
+
+                            android:textColor="@color/holo_gray"/>
+
+                        <android.support.v7.widget.SwitchCompat
+                            android:id="@+id/checkbox_hide_indicators"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/banner_slider_settings_margin"
+                            android:layout_marginLeft="@dimen/banner_slider_settings_margin"
+                            android:text="@string/label_hide_indicators"
 
                             android:textColor="@color/holo_gray"/>
                     </LinearLayout>
@@ -205,22 +216,6 @@
 
 
             </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/CardView.SS">
-
-                <ss.com.bannerslider.views.BannerSlider
-                    android:id="@+id/banner_slider2"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    app:defaultIndicators="round_square"
-                    app:emptyView="@layout/layout_empty_view"
-                    app:indicatorSize="8dp"
-                    app:loopSlides="true" />
-            </android.support.v7.widget.CardView>
-
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

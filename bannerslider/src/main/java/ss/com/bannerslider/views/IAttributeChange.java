@@ -15,5 +15,5 @@ public interface IAttributeChange {
     void onLoopSlidesChange();
     void onDefaultBannerChange();
     void onEmptyViewChange();
-    void onShowIndicatorsChange();
+    void onHideIndicatorsValueChanged();
 }

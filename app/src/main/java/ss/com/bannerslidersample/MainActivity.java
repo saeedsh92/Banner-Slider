@@ -18,15 +18,14 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
-import ss.com.bannerslider.banners.DrawableBanner;
+
 import ss.com.bannerslider.banners.RemoteBanner;
 import ss.com.bannerslider.events.OnBannerClickListener;
 import ss.com.bannerslider.views.BannerSlider;
 import ss.com.bannerslider.views.indicators.IndicatorShape;
 
 public class MainActivity extends AppCompatActivity {
-    private BannerSlider bannerSlider1;
-    private BannerSlider bannerSlider2;
+    private BannerSlider bannerSlider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 if (b){
-                    bannerSlider1.setInterval(i);
+                    bannerSlider.setInterval(i);
                 }
             }
 
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 if (b){
-                    bannerSlider1.setIndicatorSize(i);
+                    bannerSlider.setIndicatorSize(i);
                 }
             }
 
@@ -93,14 +92,22 @@ public class MainActivity extends AppCompatActivity {
         loopSlidesSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                bannerSlider1.setLoopSlides(b);
+                bannerSlider.setLoopSlides(b);
             }
         });
 
         mustAnimateIndicators.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                bannerSlider1.setMustAnimateIndicators(b);
+                bannerSlider.setMustAnimateIndicators(b);
+            }
+        });
+
+        SwitchCompat hideIndicatorsSwitch=(SwitchCompat)findViewById(R.id.checkbox_hide_indicators);
+        hideIndicatorsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                bannerSlider.setHideIndicators(b);
             }
         });
     }
@@ -132,11 +139,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupBannerSlider(){
-        bannerSlider1 = (BannerSlider) findViewById(R.id.banner_slider1);
-        bannerSlider2 = (BannerSlider) findViewById(R.id.banner_slider2);
+        bannerSlider = (BannerSlider) findViewById(R.id.banner_slider1);
         addBanners();
 
-        bannerSlider1.setOnBannerClickListener(new OnBannerClickListener() {
+        bannerSlider.setOnBannerClickListener(new OnBannerClickListener() {
             @Override
             public void onClick(int position) {
                 Toast.makeText(MainActivity.this, "Banner with position " + String.valueOf(position) + " clicked!", Toast.LENGTH_SHORT).show();
@@ -145,24 +151,19 @@ public class MainActivity extends AppCompatActivity {
     }
     private void addBanners(){
         //Add banners using image urls
-        bannerSlider1.addBanner(new RemoteBanner(
+        bannerSlider.addBanner(new RemoteBanner(
                 "https://assets.materialup.com/uploads/dcc07ea4-845a-463b-b5f0-4696574da5ed/preview.jpg"
         ));
-        bannerSlider1.addBanner(new RemoteBanner(
+        bannerSlider.addBanner(new RemoteBanner(
                 "https://assets.materialup.com/uploads/4b88d2c1-9f95-4c51-867b-bf977b0caa8c/preview.gif"
         ));
-        bannerSlider1.addBanner(new RemoteBanner(
+        bannerSlider.addBanner(new RemoteBanner(
                 "https://assets.materialup.com/uploads/76d63bbc-54a1-450a-a462-d90056be881b/preview.png"
         ));
-        bannerSlider1.addBanner(new RemoteBanner(
+        bannerSlider.addBanner(new RemoteBanner(
                 "https://assets.materialup.com/uploads/05e9b7d9-ade2-4aed-9cb4-9e24e5a3530d/preview.jpg"
         ));
 
-        //Add banners using resources
-        bannerSlider2.addBanner(new DrawableBanner(R.drawable.banner_creative_kids));
-        bannerSlider2.addBanner(new DrawableBanner(R.drawable.banner_material_design));
-        bannerSlider2.addBanner(new DrawableBanner(R.drawable.banner_instant));
-        bannerSlider2.addBanner(new DrawableBanner(R.drawable.banner_material_android_hive));
     }
 
     private void setupPageIndicatorChooser(){
@@ -181,19 +182,19 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i) {
                     case 0:
-                        bannerSlider1.setDefaultIndicator(IndicatorShape.CIRCLE);
+                        bannerSlider.setDefaultIndicator(IndicatorShape.CIRCLE);
                         break;
                     case 1:
-                        bannerSlider1.setDefaultIndicator(IndicatorShape.DASH);
+                        bannerSlider.setDefaultIndicator(IndicatorShape.DASH);
                         break;
                     case 2:
-                        bannerSlider1.setDefaultIndicator(IndicatorShape.ROUND_SQUARE);
+                        bannerSlider.setDefaultIndicator(IndicatorShape.ROUND_SQUARE);
                         break;
                     case 3:
-                        bannerSlider1.setDefaultIndicator(IndicatorShape.SQUARE);
+                        bannerSlider.setDefaultIndicator(IndicatorShape.SQUARE);
                         break;
                     case 4:
-                        bannerSlider1.setCustomIndicator(VectorDrawableCompat.create(getResources(),
+                        bannerSlider.setCustomIndicator(VectorDrawableCompat.create(getResources(),
                                 R.drawable.selected_slide_indicator, null),
                                 VectorDrawableCompat.create(getResources(),
                                         R.drawable.unselected_slide_indicator, null));

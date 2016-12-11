@@ -52,7 +52,7 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
     private int defaultBanner = 0;
     @LayoutRes
     private int emptyView;
-    private boolean showIndicators = true;
+    private boolean hideIndicators = false;
 
     public BannerSlider(Context context) {
         super(context);
@@ -87,7 +87,7 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                 mustLoopSlides = typedArray.getBoolean(R.styleable.BannerSlider_loopSlides, false);
                 defaultBanner = typedArray.getInteger(R.styleable.BannerSlider_defaultBanner, defaultBanner);
                 emptyView = typedArray.getResourceId(R.styleable.BannerSlider_emptyView, 0);
-                showIndicators = typedArray.getBoolean(R.styleable.BannerSlider_showIndicators, true);
+                hideIndicators = typedArray.getBoolean(R.styleable.BannerSlider_hideIndicators, false);
                 Log.e(TAG, "parseCustomAttributes: ");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -131,7 +131,7 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                     viewPager.setAdapter(bannerAdapter);
                     bannerAdapter.setEmptyView(emptyView);
 
-                    if (showIndicators) {
+                    if (!hideIndicators) {
                         slideIndicatorsGroup = new SlideIndicatorsGroup(getContext(), selectedSlideIndicator, unSelectedSlideIndicator, defaultIndicator, indicatorSize, mustAnimateIndicators);
                         addView(slideIndicatorsGroup);
                     }
@@ -361,6 +361,11 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
         onAnimateIndicatorsChange();
     }
 
+    public void setHideIndicators(boolean hideIndicators){
+        this.hideIndicators=hideIndicators;
+        onHideIndicatorsValueChanged();
+    }
+
     // Getters
     ///////////////////////////////////////////////////////////////////////////
 
@@ -372,7 +377,7 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
     ///////////////////////////////////////////////////////////////////////////
     @Override
     public void onIndicatorSizeChange() {
-        if (showIndicators) {
+        if (!hideIndicators) {
             if (slideIndicatorsGroup != null) {
                 removeView(slideIndicatorsGroup);
             }
@@ -431,7 +436,20 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
     }
 
     @Override
-    public void onShowIndicatorsChange() {
+    public void onHideIndicatorsValueChanged() {
+        if (slideIndicatorsGroup != null) {
+            removeView(slideIndicatorsGroup);
+        }
+        if (!hideIndicators) {
+            slideIndicatorsGroup = new SlideIndicatorsGroup(getContext(), selectedSlideIndicator, unSelectedSlideIndicator, defaultIndicator, indicatorSize, mustAnimateIndicators);
+            addView(slideIndicatorsGroup);
+            for (int i = 0; i < banners.size(); i++) {
+                slideIndicatorsGroup.onSlideAdd();
+            }
+        }
+    }
+
+    private void refreshIndicators(){
 
     }
 }
