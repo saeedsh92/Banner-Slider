@@ -5,16 +5,16 @@ Banner slider is an easy to use library for implement image sliders in android a
 ### Gradle
 add this line to your module build.gradle dependecies block:
 
-    compile 'com.ss.bannerslider:bannerslider:1.0'
+    compile 'com.ss.bannerslider:bannerslider:1.3'
     
 ### Maven
 
-  <dependency>
-    <groupId>com.ss.bannerslider</groupId>
-    <artifactId>bannerslider</artifactId>
-    <version>1.0</version>
-    <type>pom</type>
-  </dependency>
+    <dependency>
+      <groupId>com.ss.bannerslider</groupId>
+      <artifactId>bannerslider</artifactId>
+      <version>1.3</version>
+      <type>pom</type>
+    </dependency>
 
 ## How use this library
 ### XML
