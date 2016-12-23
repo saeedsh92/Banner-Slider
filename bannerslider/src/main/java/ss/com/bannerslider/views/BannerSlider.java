@@ -34,7 +34,7 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
     private static final String TAG = "BannerSlider";
     private List<Banner> banners = new ArrayList<>();
     private AppCompatActivity hostActivity;
-    private ViewPager viewPager;
+    private CustomViewPager viewPager;
     private OnBannerClickListener onBannerClickListener;
 
     //Custom attributes
@@ -116,7 +116,7 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                     } else {
                         throw new RuntimeException("Host activity must extend AppCompatActivity");
                     }
-                    viewPager = new ViewPager(getContext());
+                    viewPager = new CustomViewPager(getContext());
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                         viewPager.setId(View.generateViewId());
                     } else {
@@ -452,4 +452,5 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
     private void refreshIndicators(){
 
     }
+
 }

@@ -14,6 +14,7 @@ import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.DrawableBanner;
 import ss.com.bannerslider.banners.RemoteBanner;
 import ss.com.bannerslider.events.OnBannerClickListener;
+import ss.com.bannerslider.views.AdjustableImageView;
 
 /**
  * @author S.Shahini
@@ -38,7 +39,7 @@ public class BannerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (banner != null) {
 
-            final ImageView imageView = new ImageView(getContext());
+            final AdjustableImageView imageView = new AdjustableImageView(getContext());
             imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             imageView.setAdjustViewBounds(true);
             imageView.setScaleType(banner.getScaleType());
