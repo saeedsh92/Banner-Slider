@@ -1,8 +1,4 @@
-language: android
-android:
-  components:
-    - android-25
-    - build-tools-25.0.1
+language: java
 sudo: false
 install: true
 addons:
