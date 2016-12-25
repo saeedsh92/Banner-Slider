@@ -449,8 +449,5 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
         }
     }
 
-    private void refreshIndicators(){
-
-    }
 
 }

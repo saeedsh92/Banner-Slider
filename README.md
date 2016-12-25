@@ -5,6 +5,7 @@ Banner slider is an easy to use library for implement image sliders in android a
 ### Gradle
 add this line to your module build.gradle dependecies block:
 
+<<<<<<< HEAD
     compile 'com.ss.bannerslider:bannerslider:1.6'
     
 ### Maven
