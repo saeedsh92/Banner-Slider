@@ -11,8 +11,6 @@ android {
         targetSdkVersion 25
         versionCode 4
         versionName "1.6.1"
-        group = 'com.ss.bannerslider'
-        version = '1.6.1'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -28,46 +26,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
 }
-bintray {
-    user = 'saeedshahiniit'
-    key = '5cea3ace2eabd5791123063c96537fbc07ad6218'
-    pkg {
-        repo = 'material-views'
-        name = 'com.ss.bannerslider'
 
-        version {
-            name = '1.6.1'
-            desc = 'set allow backup false'
-            released  = new Date()
-        }
-
-        licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/saeedsh92/Banner-Slider.git'
-        websiteUrl = 'https://github.com/saeedsh92/Banner-Slider'
-    }
-    configurations = ['archives']
-}
-
-task generateSourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier 'sources'
-}
-
-task generateJavadocs(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath()
-            .join(File.pathSeparator))
-}
-
-task generateJavadocsJar(type: Jar) {
-    from generateJavadocs.destinationDir
-    classifier 'javadoc'
-}
-
-artifacts {
-    archives generateSourcesJar
-    archives generateJavadocsJar
-}
 
 
 
