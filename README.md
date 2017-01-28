@@ -12,7 +12,7 @@ add this line to your module build.gradle dependecies block:
     <dependency>
       <groupId>com.ss.bannerslider</groupId>
       <artifactId>bannerslider</artifactId>
-      <version>1.3</version>
+      <version>1.6.1</version>
       <type>pom</type>
     </dependency>
 
@@ -23,7 +23,7 @@ add this line to your module build.gradle dependecies block:
 <ss.com.bannerslider.views.BannerSlider
    android:id="@+id/banner_slider1"
    android:layout_width="match_parent"
-   android:layout_height="300dp"
+   android:layout_height="wrap_content"
    />
 ```
 
