@@ -116,7 +116,10 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                     } else {
                         throw new RuntimeException("Host activity must extend AppCompatActivity");
                     }
-                    viewPager = new CustomViewPager(getContext());
+                    boolean mustMakeViewPagerWrapContent = getLayoutParams().width == ViewGroup.LayoutParams.WRAP_CONTENT;
+                    viewPager = new CustomViewPager(getContext(),mustMakeViewPagerWrapContent);
+
+
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                         viewPager.setId(View.generateViewId());
                     } else {
@@ -352,17 +355,17 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
         onIndicatorSizeChange();
     }
 
-    public void setLoopSlides(boolean loopSlides){
-        this.mustLoopSlides=loopSlides;
+    public void setLoopSlides(boolean loopSlides) {
+        this.mustLoopSlides = loopSlides;
     }
 
-    public void setMustAnimateIndicators(boolean mustAnimateIndicators){
-        this.mustAnimateIndicators=mustAnimateIndicators;
+    public void setMustAnimateIndicators(boolean mustAnimateIndicators) {
+        this.mustAnimateIndicators = mustAnimateIndicators;
         onAnimateIndicatorsChange();
     }
 
-    public void setHideIndicators(boolean hideIndicators){
-        this.hideIndicators=hideIndicators;
+    public void setHideIndicators(boolean hideIndicators) {
+        this.hideIndicators = hideIndicators;
         onHideIndicatorsValueChanged();
     }
 
@@ -370,6 +373,8 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
     ///////////////////////////////////////////////////////////////////////////
 
     public int getCurrentSlidePosition() {
+        if (viewPager==null)
+            return -1;
         return viewPager.getCurrentItem();
     }
 
@@ -406,7 +411,7 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
 
     @Override
     public void onAnimateIndicatorsChange() {
-        if (slideIndicatorsGroup!=null) {
+        if (slideIndicatorsGroup != null) {
             slideIndicatorsGroup.setMustAnimateIndicators(mustAnimateIndicators);
         }
     }
