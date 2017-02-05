@@ -47,8 +47,7 @@ public class SlideIndicatorsGroup extends LinearLayout implements OnSlideChangeL
 
     public void setSlides(int slidesCount) {
         removeAllViews();
-        indicatorShapes.removeAll(indicatorShapes);
-
+        indicatorShapes.clear();
         this.slidesCount = 0;
         for (int i = 0; i < slidesCount; i++) {
             onSlideAdd();
@@ -89,11 +88,6 @@ public class SlideIndicatorsGroup extends LinearLayout implements OnSlideChangeL
 
         } else {
             switch (defaultIndicator) {
-                case IndicatorShape.CIRCLE:
-                    indicatorShape = new CircleIndicator(context, indicatorSize, mustAnimateIndicators);
-                    indicatorShapes.add(indicatorShape);
-                    addView(indicatorShape);
-                    break;
                 case IndicatorShape.SQUARE:
                     indicatorShape = new SquareIndicator(context, indicatorSize, mustAnimateIndicators);
                     indicatorShapes.add(indicatorShape);
@@ -108,6 +102,14 @@ public class SlideIndicatorsGroup extends LinearLayout implements OnSlideChangeL
                     indicatorShape = new DashIndicator(context, indicatorSize, mustAnimateIndicators);
                     indicatorShapes.add(indicatorShape);
                     addView(indicatorShape);
+                    break;
+
+                case IndicatorShape.CIRCLE:
+                    indicatorShape = new CircleIndicator(context, indicatorSize, mustAnimateIndicators);
+                    indicatorShapes.add(indicatorShape);
+                    addView(indicatorShape);
+                    break;
+                default:
                     break;
             }
         }
@@ -153,4 +155,6 @@ public class SlideIndicatorsGroup extends LinearLayout implements OnSlideChangeL
             indicatorShape.setMustAnimateChange(mustAnimateIndicators);
         }
     }
+
+
 }
