@@ -16,6 +16,8 @@ import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -53,6 +55,9 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
     @LayoutRes
     private int emptyView;
     private boolean hideIndicators = false;
+
+    private List<Banner> bannersQueue=new ArrayList<>();
+    private boolean setupIsCalled =false;
 
     public BannerSlider(Context context) {
         super(context);
@@ -104,8 +109,6 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-
-
     }
 
     private void setup() {
@@ -141,6 +144,8 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                     }
 
                     setupTimer();
+                    setupIsCalled = true;
+                    renderRemainingBanners();
                 }
             });
         }
@@ -148,23 +153,30 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
     }
 
     public void addBanner(final Banner banner) {
-        post(new Runnable() {
-            @Override
-            public void run() {
-                banners.add(banner);
-                bannerAdapter.addBanner(banner);
-                banner.setPosition(banners.size() - 1);
-                banner.setOnBannerClickListener(onBannerClickListener);
-                slideIndicatorsGroup.onSlideAdd();
-                if (banners.size() == 1 && defaultBanner == 0) {
-                    slideIndicatorsGroup.onSlideChange(0);
-                    if (mustLoopSlides) {
-                        viewPager.setCurrentItem(1);
-                    }
+        if (setupIsCalled){
+            banners.add(banner);
+            bannerAdapter.addBanner(banner);
+            banner.setPosition(banners.size() - 1);
+            banner.setOnBannerClickListener(onBannerClickListener);
+            slideIndicatorsGroup.onSlideAdd();
+            if (banners.size() == 1 && defaultBanner == 0) {
+                slideIndicatorsGroup.onSlideChange(0);
+                if (mustLoopSlides) {
+                    viewPager.setCurrentItem(1);
                 }
             }
-        });
+        }else {
+            bannersQueue.add(banner);
+        }
+    }
 
+    private void renderRemainingBanners(){
+        for (int i = 0; i < bannersQueue.size(); i++) {
+            Banner banner=bannersQueue.get(i);
+            if (banner!=null){
+                addBanner(banner);
+            }
+        }
     }
 
     @Override
