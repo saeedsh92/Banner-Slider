@@ -88,6 +88,8 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                 defaultBanner = typedArray.getInteger(R.styleable.BannerSlider_defaultBanner, defaultBanner);
                 emptyView = typedArray.getResourceId(R.styleable.BannerSlider_emptyView, 0);
                 hideIndicators = typedArray.getBoolean(R.styleable.BannerSlider_hideIndicators, false);
+                bannerAdapter = new BannerAdapter(hostActivity.getSupportFragmentManager(), mustLoopSlides);
+
                 Log.e(TAG, "parseCustomAttributes: ");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -116,7 +118,7 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                     } else {
                         throw new RuntimeException("Host activity must extend AppCompatActivity");
                     }
-                    boolean mustMakeViewPagerWrapContent = getLayoutParams().width == ViewGroup.LayoutParams.WRAP_CONTENT;
+                    boolean mustMakeViewPagerWrapContent = getLayoutParams().height == ViewGroup.LayoutParams.WRAP_CONTENT;
                     viewPager = new CustomViewPager(getContext(),mustMakeViewPagerWrapContent);
 
 
@@ -130,7 +132,6 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                     viewPager.addOnPageChangeListener(BannerSlider.this);
                     addView(viewPager);
 
-                    bannerAdapter = new BannerAdapter(hostActivity.getSupportFragmentManager(), mustLoopSlides);
                     viewPager.setAdapter(bannerAdapter);
                     bannerAdapter.setEmptyView(emptyView);
 

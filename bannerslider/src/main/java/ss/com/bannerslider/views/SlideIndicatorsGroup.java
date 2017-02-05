@@ -155,6 +155,4 @@ public class SlideIndicatorsGroup extends LinearLayout implements OnSlideChangeL
             indicatorShape.setMustAnimateChange(mustAnimateIndicators);
         }
     }
-
-
 }

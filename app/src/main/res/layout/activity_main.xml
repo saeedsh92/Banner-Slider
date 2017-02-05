@@ -76,7 +76,6 @@
                     </RelativeLayout>
 
 
-
                     <ss.com.bannerslider.views.BannerSlider
                         android:id="@+id/banner_slider1"
                         android:layout_width="match_parent"
@@ -86,6 +85,7 @@
                         app:defaultIndicators="circle"
                         app:interval="5000"
                         app:loopSlides="true" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -93,18 +93,18 @@
                         android:layout_below="@id/banner_slider1"
                         android:orientation="vertical"
                         android:padding="12dp">
+
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="70dp"
-                            >
+                            android:layout_height="70dp">
 
                             <ImageView
                                 android:id="@+id/image_logo"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                android:layout_marginRight="@dimen/standard_margin"
-                                android:layout_centerVertical="true"
                                 android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="@dimen/standard_margin"
                                 android:src="@drawable/ic_setting_2" />
 
                             <LinearLayout
@@ -129,54 +129,60 @@
                             </LinearLayout>
 
                         </RelativeLayout>
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:background="#ddd"
-                            android:layout_marginBottom="16dp"/>
+                            android:layout_marginBottom="16dp"
+                            android:background="#ddd" />
+
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="@dimen/banner_slider_settings_margin"
+                            android:layout_marginBottom="@dimen/standard_margin"
                             android:layout_marginLeft="@dimen/banner_slider_settings_margin"
-                            android:layout_marginBottom="@dimen/standard_margin">
+                            android:layout_marginRight="@dimen/banner_slider_settings_margin">
+
                             <TextView
                                 android:id="@+id/text_label_interval"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
                                 android:layout_alignParentStart="true"
-                                android:text="@string/label_interval"
-                                />
+                                android:layout_centerVertical="true"
+                                android:text="@string/label_interval" />
+
                             <SeekBar
                                 android:id="@+id/seekbar_interval"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/text_label_interval"/>
+                                android:layout_toEndOf="@id/text_label_interval" />
 
 
                         </RelativeLayout>
+
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="@dimen/banner_slider_settings_margin"
+                            android:layout_marginBottom="@dimen/standard_margin"
                             android:layout_marginLeft="@dimen/banner_slider_settings_margin"
-                            android:layout_marginBottom="@dimen/standard_margin">
+                            android:layout_marginRight="@dimen/banner_slider_settings_margin">
+
                             <TextView
                                 android:id="@+id/text_label_indicator_size"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginBottom="@dimen/standard_margin"
-                                android:layout_alignParentStart="true"
-                                android:text="@string/label_indicator_size"/>
+                                android:text="@string/label_indicator_size" />
+
                             <SeekBar
                                 android:id="@+id/seekbar_indicator_size"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/text_label_indicator_size"/>
+                                android:layout_toEndOf="@id/text_label_indicator_size" />
 
 
                         </RelativeLayout>
@@ -185,32 +191,32 @@
                             android:id="@+id/checkbox_loop_slides"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="@dimen/banner_slider_settings_margin"
-                            android:layout_marginLeft="@dimen/banner_slider_settings_margin"
-                            android:text="@string/label_loop_slides"
                             android:layout_marginBottom="@dimen/standard_margin"
-                            android:textColor="@color/holo_gray"
-                            />
+                            android:layout_marginLeft="@dimen/banner_slider_settings_margin"
+                            android:layout_marginRight="@dimen/banner_slider_settings_margin"
+                            android:text="@string/label_loop_slides"
+                            android:textColor="@color/holo_gray" />
+
                         <android.support.v7.widget.SwitchCompat
                             android:id="@+id/checkbox_animate_indicators"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="@dimen/banner_slider_settings_margin"
-                            android:layout_marginLeft="@dimen/banner_slider_settings_margin"
                             android:layout_marginBottom="@dimen/standard_margin"
+                            android:layout_marginLeft="@dimen/banner_slider_settings_margin"
+                            android:layout_marginRight="@dimen/banner_slider_settings_margin"
                             android:text="@string/label_animate_indicators"
 
-                            android:textColor="@color/holo_gray"/>
+                            android:textColor="@color/holo_gray" />
 
                         <android.support.v7.widget.SwitchCompat
                             android:id="@+id/checkbox_hide_indicators"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="@dimen/banner_slider_settings_margin"
                             android:layout_marginLeft="@dimen/banner_slider_settings_margin"
+                            android:layout_marginRight="@dimen/banner_slider_settings_margin"
                             android:text="@string/label_hide_indicators"
 
-                            android:textColor="@color/holo_gray"/>
+                            android:textColor="@color/holo_gray" />
                     </LinearLayout>
                 </RelativeLayout>
 
