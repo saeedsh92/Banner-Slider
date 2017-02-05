@@ -88,7 +88,6 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                 defaultBanner = typedArray.getInteger(R.styleable.BannerSlider_defaultBanner, defaultBanner);
                 emptyView = typedArray.getResourceId(R.styleable.BannerSlider_emptyView, 0);
                 hideIndicators = typedArray.getBoolean(R.styleable.BannerSlider_hideIndicators, false);
-                bannerAdapter = new BannerAdapter(hostActivity.getSupportFragmentManager(), mustLoopSlides);
 
                 Log.e(TAG, "parseCustomAttributes: ");
             } catch (Exception e) {
@@ -97,14 +96,15 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                 typedArray.recycle();
             }
         }
+        if (!isInEditMode()) {
+            setup();
+        }
     }
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        if (!isInEditMode()) {
-            setup();
-        }
+
 
     }
 
@@ -131,7 +131,7 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                     viewPager.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                     viewPager.addOnPageChangeListener(BannerSlider.this);
                     addView(viewPager);
-
+                    bannerAdapter = new BannerAdapter(hostActivity.getSupportFragmentManager(), mustLoopSlides);
                     viewPager.setAdapter(bannerAdapter);
                     bannerAdapter.setEmptyView(emptyView);
 
