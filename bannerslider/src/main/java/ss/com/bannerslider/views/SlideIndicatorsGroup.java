@@ -82,9 +82,13 @@ public class SlideIndicatorsGroup extends LinearLayout implements OnSlideChangeL
                     }
                 }
             };
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                indicatorShape.setBackground(unselectedSlideIndicator);
+            } else {
+                indicatorShape.setBackgroundDrawable(unselectedSlideIndicator);
+            }
             indicatorShapes.add(indicatorShape);
             addView(indicatorShape);
-
 
         } else {
             switch (defaultIndicator) {
