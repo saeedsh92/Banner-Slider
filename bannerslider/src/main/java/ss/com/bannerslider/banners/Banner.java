@@ -2,6 +2,7 @@ package ss.com.bannerslider.banners;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.View;
 import android.widget.ImageView;
 
 import ss.com.bannerslider.events.OnBannerClickListener;
@@ -16,6 +17,7 @@ public class Banner implements Parcelable {
     private int position;
     private ImageView.ScaleType scaleType = ImageView.ScaleType.CENTER_CROP;
     private OnBannerClickListener onBannerClickListener;
+    private View.OnTouchListener onTouchListener;
 
     public Banner() {
 
@@ -86,5 +88,13 @@ public class Banner implements Parcelable {
 
     public OnBannerClickListener getOnBannerClickListener() {
         return this.onBannerClickListener;
+    }
+
+    public View.OnTouchListener getOnTouchListener() {
+        return onTouchListener;
+    }
+
+    public void setOnTouchListener(View.OnTouchListener onTouchListener) {
+        this.onTouchListener = onTouchListener;
     }
 }

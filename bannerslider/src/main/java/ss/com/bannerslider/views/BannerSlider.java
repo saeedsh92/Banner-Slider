@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -154,6 +155,17 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
 
     public void addBanner(final Banner banner) {
         if (setupIsCalled){
+            banner.setOnTouchListener(new OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    if (motionEvent.getAction()==MotionEvent.ACTION_DOWN){
+                        stopTimer();
+                    }else if (motionEvent.getAction()==MotionEvent.ACTION_UP){
+                        setupTimer();
+                    }
+                    return false;
+                }
+            });
             banners.add(banner);
             bannerAdapter.addBanner(banner);
             banner.setPosition(banners.size() - 1);
@@ -221,11 +233,7 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
     public void onPageScrollStateChanged(int state) {
         switch (state) {
             case ViewPager.SCROLL_STATE_DRAGGING:
-                if (timer != null) {
-                    timer.cancel();
-                    timer.purge();
-                    timer = null;
-                }
+                stopTimer();
                 break;
             case ViewPager.SCROLL_STATE_IDLE:
                 if (timer == null) {
@@ -258,6 +266,14 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                     });
                 }
             }, slideShowInterval, slideShowInterval);
+        }
+    }
+
+    private void stopTimer(){
+        if (timer!=null) {
+            timer.cancel();
+            timer.purge();
+            timer = null;
         }
     }
 
