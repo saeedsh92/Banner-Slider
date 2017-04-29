@@ -135,7 +135,12 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                     viewPager.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                     viewPager.addOnPageChangeListener(BannerSlider.this);
                     addView(viewPager);
-                    bannerAdapter = new BannerAdapter(hostActivity.getSupportFragmentManager(), mustLoopSlides);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                        bannerAdapter = new BannerAdapter(hostActivity.getSupportFragmentManager(), mustLoopSlides,getLayoutDirection());
+                    }else {
+                        bannerAdapter = new BannerAdapter(hostActivity.getSupportFragmentManager(), mustLoopSlides);
+
+                    }
                     viewPager.setAdapter(bannerAdapter);
                     bannerAdapter.setEmptyView(emptyView);
 
@@ -174,7 +179,9 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
             if (banners.size() == 1 && defaultBanner == 0) {
                 slideIndicatorsGroup.onSlideChange(0);
                 if (mustLoopSlides) {
-                    viewPager.setCurrentItem(1);
+                    if (getLayoutDirection()==LAYOUT_DIRECTION_LTR) {
+                        viewPager.setCurrentItem(1);
+                    }
                 }
             }
         }else {
@@ -260,7 +267,16 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
                                     viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
                                 }
                             } else {
-                                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
+
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                                    if (getLayoutDirection()==LAYOUT_DIRECTION_LTR) {
+                                        viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
+                                    }else {
+                                        viewPager.setCurrentItem(viewPager.getCurrentItem()-1,true);
+                                    }
+                                }else {
+                                    viewPager.setCurrentItem(viewPager.getCurrentItem()-1,true);
+                                }
                             }
                         }
                     });

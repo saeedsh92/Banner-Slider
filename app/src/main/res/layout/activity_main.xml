@@ -83,8 +83,9 @@
                         android:layout_below="@id/container_spinner"
                         app:animateIndicators="true"
                         app:defaultIndicators="circle"
-                        app:interval="5000"
-                        app:loopSlides="true" />
+                        app:interval="0"
+                        app:loopSlides="true"
+                        />
 
                     <LinearLayout
                         android:layout_width="match_parent"
