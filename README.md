@@ -32,11 +32,13 @@ add this line to your module build.gradle dependecies block:
 
 ### Java
 ```java
-  BannerSlider bannerSlider = (BannerSlider) findViewById(R.id.banner_slider1);
-  //add banner using image url
-  bannerSlider.addBanner(new RemoteBanner("Put banner image url here ..."));
-  //add banner using resource drawable
-  bannerSlider.addBanner(new DrawableBanner(R.drawable.yourDrawable));
+    BannerSlider bannerSlider = (BannerSlider) findViewById(R.id.banner_slider1);
+    List<Banner> banners=new ArrayList<>();
+    //add banner using image url
+    banners.add(new RemoteBanner("Put banner image url here ..."));
+    //add banner using resource drawable
+    banners.add(new DrawableBanner(R.drawable.yourDrawable));
+    bannerSlider.setBanners(banners);
 ```
 
 ## You want more customization?
