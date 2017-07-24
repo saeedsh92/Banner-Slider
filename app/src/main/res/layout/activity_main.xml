@@ -75,11 +75,10 @@
                             android:layout_toRightOf="@id/text_label_page_indicator" />
                     </RelativeLayout>
 
-
                     <ss.com.bannerslider.views.BannerSlider
                         android:id="@+id/banner_slider1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="200dp"
                         android:layout_below="@id/container_spinner"
                         app:animateIndicators="true"
                         app:defaultIndicators="circle"

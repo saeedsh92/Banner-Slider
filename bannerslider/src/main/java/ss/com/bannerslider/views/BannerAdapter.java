@@ -25,29 +25,20 @@ public class BannerAdapter extends FragmentStatePagerAdapter {
     private boolean isLooping = false;
     @LayoutRes
     private int emptyView;
-    private boolean isRtl;
 
-    public BannerAdapter(FragmentManager fm, boolean isLooping) {
+    public BannerAdapter(FragmentManager fm, boolean isLooping,List<Banner> banners) {
         super(fm);
         this.isLooping = isLooping;
-        isRtl=false;
+        this.banners=banners;
     }
 
-    public BannerAdapter(FragmentManager fm, boolean isLooping,int layoutDirection) {
+    public BannerAdapter(FragmentManager fm, boolean isLooping, int layoutDirection,List<Banner> banners) {
         super(fm);
         this.isLooping = isLooping;
+        this.banners=banners;
         if (layoutDirection==LayoutDirection.RTL){
-            isRtl=true;
+            Collections.reverse(banners);
         }
-    }
-
-    public void addBanner(Banner banner) {
-        if (!banners.isEmpty() && isRtl){
-            this.banners.add(0,banner);
-        }else {
-            this.banners.add(banner);
-        }
-        notifyDataSetChanged();
     }
 
     @Override
@@ -57,9 +48,9 @@ public class BannerAdapter extends FragmentStatePagerAdapter {
         }
         if (isLooping) {
             if (position == 0) {
-                    return BannerFragment.newInstance(banners.get(banners.size() - 1));
+                return BannerFragment.newInstance(banners.get(banners.size() - 1));
             } else if (position == banners.size() + 1) {
-                    return BannerFragment.newInstance(banners.get(0));
+                return BannerFragment.newInstance(banners.get(0));
             } else {
                 return BannerFragment.newInstance(banners.get(position - 1));
             }

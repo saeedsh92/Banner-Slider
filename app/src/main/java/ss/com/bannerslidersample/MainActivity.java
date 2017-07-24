@@ -19,6 +19,10 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
 import ss.com.bannerslider.events.OnBannerClickListener;
 import ss.com.bannerslider.views.BannerSlider;
@@ -150,19 +154,21 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private void addBanners(){
+        List<Banner> remoteBanners=new ArrayList<>();
         //Add banners using image urls
-        bannerSlider.addBanner(new RemoteBanner(
+        remoteBanners.add(new RemoteBanner(
                 "https://assets.materialup.com/uploads/dcc07ea4-845a-463b-b5f0-4696574da5ed/preview.jpg"
         ));
-        bannerSlider.addBanner(new RemoteBanner(
+        remoteBanners.add(new RemoteBanner(
                 "https://assets.materialup.com/uploads/4b88d2c1-9f95-4c51-867b-bf977b0caa8c/preview.gif"
         ));
-        bannerSlider.addBanner(new RemoteBanner(
+        remoteBanners.add(new RemoteBanner(
                 "https://assets.materialup.com/uploads/76d63bbc-54a1-450a-a462-d90056be881b/preview.png"
         ));
-        bannerSlider.addBanner(new RemoteBanner(
+        remoteBanners.add(new RemoteBanner(
                 "https://assets.materialup.com/uploads/05e9b7d9-ade2-4aed-9cb4-9e24e5a3530d/preview.jpg"
         ));
+        bannerSlider.setBanners(remoteBanners);
 
     }
 
