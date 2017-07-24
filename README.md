@@ -106,7 +106,10 @@ bannerSlider.setOnBannerClickListener(new OnBannerClickListener() {
     }
   });
 ```
-
+#### Remove all banners
+```java
+    bannerSlider.removeAllBanners();
+```
 ## Licence
 Copyright 2016 Saeed Shahini
 
