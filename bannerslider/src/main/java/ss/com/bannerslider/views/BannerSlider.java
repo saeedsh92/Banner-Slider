@@ -24,9 +24,6 @@ import java.util.TimerTask;
 import ss.com.bannerslider.R;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.events.OnBannerClickListener;
-import ss.com.bannerslider.views.BannerAdapter;
-import ss.com.bannerslider.views.IAttributeChange;
-import ss.com.bannerslider.views.SlideIndicatorsGroup;
 import ss.com.bannerslider.views.indicators.IndicatorShape;
 
 /**
@@ -393,7 +390,7 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
             @Override
             public void run() {
                 if (viewPager != null) {
-                    viewPager.setCurrentItem(position);
+                    viewPager.setCurrentItem((mustLoopSlides) ? (position + 1) : position);
                 }
             }
         });
