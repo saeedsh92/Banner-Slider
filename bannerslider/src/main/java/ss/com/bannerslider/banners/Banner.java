@@ -15,7 +15,7 @@ import ss.com.bannerslider.events.OnBannerClickListener;
 public class Banner implements Parcelable {
     private int id;
     private int position;
-    private ImageView.ScaleType scaleType = ImageView.ScaleType.CENTER_CROP;
+    private ImageView.ScaleType scaleType = ImageView.ScaleType.CENTER_INSIDE;
     private OnBannerClickListener onBannerClickListener;
     private View.OnTouchListener onTouchListener;
 
