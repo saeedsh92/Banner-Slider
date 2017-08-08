@@ -47,14 +47,14 @@ public class BannerFragment extends Fragment {
                 Glide.with(getContext()).load(drawableBanner.getDrawable()).into(imageView);
             } else {
                 final RemoteBanner remoteBanner = (RemoteBanner) banner;
-                if (remoteBanner.getErrorDrawable() == null && remoteBanner.getPlaceHolder() == null) {
+                if (remoteBanner.getErrorDrawable() == null && remoteBanner.getPlaceHolder() == 0) {
                     Glide.with(getActivity()).load(remoteBanner.getUrl()).into(imageView);
                 } else {
-                    if (remoteBanner.getPlaceHolder() != null && remoteBanner.getErrorDrawable() != null) {
+                    if (remoteBanner.getPlaceHolder() != 0 && remoteBanner.getErrorDrawable() != null) {
                         Glide.with(getActivity()).load(remoteBanner.getUrl()).placeholder(remoteBanner.getPlaceHolder()).error(remoteBanner.getErrorDrawable()).into(imageView);
                     } else if (remoteBanner.getErrorDrawable() != null) {
                         Glide.with(getActivity()).load(remoteBanner.getUrl()).error(remoteBanner.getErrorDrawable()).into(imageView);
-                    } else if (remoteBanner.getPlaceHolder() != null) {
+                    } else if (remoteBanner.getPlaceHolder() != 0) {
                         Glide.with(getActivity()).load(remoteBanner.getUrl()).placeholder(remoteBanner.getPlaceHolder()).into(imageView);
                     }
                 }

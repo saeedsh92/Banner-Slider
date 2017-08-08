@@ -1,11 +1,10 @@
 package ss.com.bannerslider.banners;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.DrawableRes;
 
 /**
  * @author S.Shahini
@@ -14,7 +13,7 @@ import android.os.Parcelable;
 
 public class RemoteBanner extends Banner implements Parcelable {
     private String url;
-    private Drawable placeHolder;
+    private int placeHolder = 0;
     private Drawable errorDrawable;
 
     public RemoteBanner(String url) {
@@ -25,11 +24,11 @@ public class RemoteBanner extends Banner implements Parcelable {
         return url;
     }
 
-    public Drawable getPlaceHolder() {
+    public int getPlaceHolder() {
         return placeHolder;
     }
 
-    public RemoteBanner setPlaceHolder(Drawable placeHolder) {
+    public RemoteBanner setPlaceHolder(@DrawableRes int placeHolder) {
         this.placeHolder = placeHolder;
         return this;
     }
@@ -45,7 +44,7 @@ public class RemoteBanner extends Banner implements Parcelable {
 
     protected RemoteBanner(Parcel in) {
         url = in.readString();
-        placeHolder = (Drawable) in.readValue(Drawable.class.getClassLoader());
+        placeHolder = in.readInt();
         errorDrawable = (Drawable) in.readValue(Drawable.class.getClassLoader());
     }
 
@@ -57,8 +56,8 @@ public class RemoteBanner extends Banner implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(url);
-        if (placeHolder!=null) {
-            dest.writeParcelable(((BitmapDrawable) placeHolder).getBitmap(), flags);
+        if (placeHolder!=0) {
+            dest.writeInt(placeHolder);
         }
         if (errorDrawable!=null) {
             dest.writeParcelable(((BitmapDrawable) errorDrawable).getBitmap(), flags);
