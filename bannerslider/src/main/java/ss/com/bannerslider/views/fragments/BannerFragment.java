@@ -49,14 +49,14 @@ public class BannerFragment extends Fragment {
             } else {
                 final RemoteBanner remoteBanner = (RemoteBanner) banner;
                 if (remoteBanner.getErrorDrawable() == null && remoteBanner.getPlaceHolder() == 0) {
-                    Glide.with(getActivity()).load(remoteBanner.getUrl()).into(imageView);
+                    Glide.with(this).load(remoteBanner.getUrl()).into(imageView);
                 } else {
                     if (remoteBanner.getPlaceHolder() != 0 && remoteBanner.getErrorDrawable() != null) {
-                        GlideApp.with(getActivity()).load(remoteBanner.getUrl()).placeholder(remoteBanner.getPlaceHolder()).error(remoteBanner.getErrorDrawable()).into(imageView);
+                        GlideApp.with(this).load(remoteBanner.getUrl()).placeholder(remoteBanner.getPlaceHolder()).error(remoteBanner.getErrorDrawable()).into(imageView);
                     } else if (remoteBanner.getErrorDrawable() != null) {
-                        GlideApp.with(getActivity()).load(remoteBanner.getUrl()).error(remoteBanner.getErrorDrawable()).into(imageView);
+                        GlideApp.with(this).load(remoteBanner.getUrl()).error(remoteBanner.getErrorDrawable()).into(imageView);
                     } else if (remoteBanner.getPlaceHolder() != 0) {
-                        GlideApp.with(getActivity()).load(remoteBanner.getUrl()).placeholder(remoteBanner.getPlaceHolder()).into(imageView);
+                        GlideApp.with(this).load(remoteBanner.getUrl()).placeholder(remoteBanner.getPlaceHolder()).into(imageView);
                     }
                 }
             }
