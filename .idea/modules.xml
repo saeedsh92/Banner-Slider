@@ -3,10 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Banner-Slider.iml" filepath="$PROJECT_DIR$/Banner-Slider.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Banner-Slider.iml" filepath="$PROJECT_DIR$/Banner-Slider.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/bannerslider/bannerslider.iml" filepath="$PROJECT_DIR$/bannerslider/bannerslider.iml" />
       <module fileurl="file://$PROJECT_DIR$/bannerslider/bannerslider.iml" filepath="$PROJECT_DIR$/bannerslider/bannerslider.iml" />
     </modules>
   </component>

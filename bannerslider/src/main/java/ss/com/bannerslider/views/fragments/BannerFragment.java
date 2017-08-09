@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 
+import ss.com.bannerslider.GlideApp;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.DrawableBanner;
 import ss.com.bannerslider.banners.RemoteBanner;
@@ -51,11 +52,11 @@ public class BannerFragment extends Fragment {
                     Glide.with(getActivity()).load(remoteBanner.getUrl()).into(imageView);
                 } else {
                     if (remoteBanner.getPlaceHolder() != 0 && remoteBanner.getErrorDrawable() != null) {
-                        Glide.with(getActivity()).load(remoteBanner.getUrl()).placeholder(remoteBanner.getPlaceHolder()).error(remoteBanner.getErrorDrawable()).into(imageView);
+                        GlideApp.with(getActivity()).load(remoteBanner.getUrl()).placeholder(remoteBanner.getPlaceHolder()).error(remoteBanner.getErrorDrawable()).into(imageView);
                     } else if (remoteBanner.getErrorDrawable() != null) {
-                        Glide.with(getActivity()).load(remoteBanner.getUrl()).error(remoteBanner.getErrorDrawable()).into(imageView);
+                        GlideApp.with(getActivity()).load(remoteBanner.getUrl()).error(remoteBanner.getErrorDrawable()).into(imageView);
                     } else if (remoteBanner.getPlaceHolder() != 0) {
-                        Glide.with(getActivity()).load(remoteBanner.getUrl()).placeholder(remoteBanner.getPlaceHolder()).into(imageView);
+                        GlideApp.with(getActivity()).load(remoteBanner.getUrl()).placeholder(remoteBanner.getPlaceHolder()).into(imageView);
                     }
                 }
             }
