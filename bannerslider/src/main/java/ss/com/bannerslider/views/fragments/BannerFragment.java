@@ -4,15 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import ss.com.bannerslider.banners.Banner;
+import ss.com.bannerslider.banners.BitmapBanner;
 import ss.com.bannerslider.banners.DrawableBanner;
 import ss.com.bannerslider.banners.RemoteBanner;
 import ss.com.bannerslider.events.OnBannerClickListener;
@@ -48,6 +46,10 @@ public class BannerFragment extends Fragment {
             if (banner instanceof DrawableBanner) {
                 DrawableBanner drawableBanner = (DrawableBanner) banner;
                 Picasso.with(getContext()).load(drawableBanner.getDrawable()).into(imageView);
+            } else if (banner instanceof BitmapBanner){
+                BitmapBanner drawableBanner = (BitmapBanner) banner;
+                imageView.setImageBitmap(drawableBanner.getBitmap());
+
             } else {
                 final RemoteBanner remoteBanner = (RemoteBanner) banner;
                 if (remoteBanner.getErrorDrawable() == null && remoteBanner.getPlaceHolder() == null) {
