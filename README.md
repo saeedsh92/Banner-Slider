@@ -1,4 +1,5 @@
 # Banner-Slider
+This library is forked from https://github.com/saeedsh92/Banner-Slider  
 Banner slider is an easy to use library for making beautiful sliders in your android app.
 
 <img src="https://github.com/saeedsh92/Banner-Slider/blob/master/Screenshot_1481531647.png?raw=true" width="350">
@@ -6,18 +7,20 @@ Banner slider is an easy to use library for making beautiful sliders in your and
 
 ## How to download
 ### Gradle
+add jitpack in your root build.gradle at the end of repositories:
+```
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
 add this line to your module build.gradle dependecies block:
 
-    compile 'com.ss.bannerslider:bannerslider:1.8.0'
+    compile 'com.github.interchen:Banner-Slider:1.9.0'
 
-### Maven
-
-    <dependency>
-      <groupId>com.ss.bannerslider</groupId>
-      <artifactId>bannerslider</artifactId>
-      <version>1.6.1</version>
-      <type>pom</type>
-    </dependency>
 
 ## How use this library
 ### XML
@@ -35,10 +38,19 @@ add this line to your module build.gradle dependecies block:
     BannerSlider bannerSlider = (BannerSlider) findViewById(R.id.banner_slider1);
     List<Banner> banners=new ArrayList<>();
     //add banner using image url
-    banners.add(new RemoteBanner("Put banner image url here ..."));
+    banners.add(new RemoteBanner("Put banner image url here ...", this));
     //add banner using resource drawable
     banners.add(new DrawableBanner(R.drawable.yourDrawable));
     bannerSlider.setBanners(banners);
+```
+
+implement BannerListener
+```java
+@Override
+public void onLoadBanner(Context context, Banner banner, ImageView imageView) {
+    RemoteBanner remoteBanner = (RemoteBanner) banner;
+    Picasso.with(context).load(remoteBanner.getUrl()).into(imageView);
+}
 ```
 
 ## You want more customization?
