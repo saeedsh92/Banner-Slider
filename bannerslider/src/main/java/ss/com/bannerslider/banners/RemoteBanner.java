@@ -1,7 +1,5 @@
 package ss.com.bannerslider.banners;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
@@ -17,8 +15,9 @@ public class RemoteBanner extends Banner implements Parcelable {
     private Drawable placeHolder;
     private Drawable errorDrawable;
 
-    public RemoteBanner(String url) {
+    public RemoteBanner(String url, BannerListener listener) {
         this.url = url;
+        this.setBannerListener(listener);
     }
 
     public String getUrl() {
@@ -57,10 +56,10 @@ public class RemoteBanner extends Banner implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(url);
-        if (placeHolder!=null) {
+        if (placeHolder != null) {
             dest.writeParcelable(((BitmapDrawable) placeHolder).getBitmap(), flags);
         }
-        if (errorDrawable!=null) {
+        if (errorDrawable != null) {
             dest.writeParcelable(((BitmapDrawable) errorDrawable).getBitmap(), flags);
         }
     }
@@ -77,4 +76,19 @@ public class RemoteBanner extends Banner implements Parcelable {
             return new RemoteBanner[size];
         }
     };
+
+//    @Override
+//    public void onLoadBanner(Context context, ImageView imageView) {
+//        if (getErrorDrawable() == null && getPlaceHolder() == null) {
+//            Picasso.with(context).load(getUrl()).into(imageView);
+//        } else {
+//            if (getPlaceHolder() != null && getErrorDrawable() != null) {
+//                Picasso.with(context).load(getUrl()).placeholder(getPlaceHolder()).error(getErrorDrawable()).into(imageView);
+//            } else if (getErrorDrawable() != null) {
+//                Picasso.with(context).load(getUrl()).error(getErrorDrawable()).into(imageView);
+//            } else if (getPlaceHolder() != null) {
+//                Picasso.with(context).load(getUrl()).placeholder(getPlaceHolder()).into(imageView);
+//            }
+//        }
+//    }
 }

@@ -1,5 +1,6 @@
 package ss.com.bannerslidersample;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -19,16 +20,19 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import ss.com.bannerslider.banners.Banner;
+import ss.com.bannerslider.banners.DrawableBanner;
 import ss.com.bannerslider.banners.RemoteBanner;
 import ss.com.bannerslider.events.OnBannerClickListener;
 import ss.com.bannerslider.views.BannerSlider;
 import ss.com.bannerslider.views.indicators.IndicatorShape;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Banner.BannerListener {
     private BannerSlider bannerSlider;
 
     @Override
@@ -46,12 +50,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupSettingsUi() {
-        final SeekBar intervalSeekBar=(SeekBar)findViewById(R.id.seekbar_interval);
+        final SeekBar intervalSeekBar = (SeekBar) findViewById(R.id.seekbar_interval);
         intervalSeekBar.setMax(10000);
         intervalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if (b){
+                if (b) {
                     bannerSlider.setInterval(i);
                 }
             }
@@ -67,12 +71,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        SeekBar indicatorSizeSeekBar=(SeekBar)findViewById(R.id.seekbar_indicator_size);
+        SeekBar indicatorSizeSeekBar = (SeekBar) findViewById(R.id.seekbar_indicator_size);
         indicatorSizeSeekBar.setMax(getResources().getDimensionPixelSize(R.dimen.max_slider_indicator_size));
         indicatorSizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if (b){
+                if (b) {
                     bannerSlider.setIndicatorSize(i);
                 }
             }
@@ -88,9 +92,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        SwitchCompat loopSlidesSwitch=(SwitchCompat)findViewById(R.id.checkbox_loop_slides);
+        SwitchCompat loopSlidesSwitch = (SwitchCompat) findViewById(R.id.checkbox_loop_slides);
         loopSlidesSwitch.setChecked(true);
-        SwitchCompat mustAnimateIndicators=(SwitchCompat)findViewById(R.id.checkbox_animate_indicators);
+        SwitchCompat mustAnimateIndicators = (SwitchCompat) findViewById(R.id.checkbox_animate_indicators);
         mustAnimateIndicators.setChecked(true);
 
         loopSlidesSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -107,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        SwitchCompat hideIndicatorsSwitch=(SwitchCompat)findViewById(R.id.checkbox_hide_indicators);
+        SwitchCompat hideIndicatorsSwitch = (SwitchCompat) findViewById(R.id.checkbox_hide_indicators);
         hideIndicatorsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -126,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Uri uri = Uri.parse("https://github.com/saeedsh92/Banner-Slider");
 
-                if (Build.VERSION.SDK_INT>15) {
+                if (Build.VERSION.SDK_INT > 15) {
                     CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
                     intentBuilder.setToolbarColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimary));
                     intentBuilder.setSecondaryToolbarColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimaryDark));
@@ -134,15 +138,15 @@ public class MainActivity extends AppCompatActivity {
                     intentBuilder.setExitAnimations(MainActivity.this, android.R.anim.fade_in, android.R.anim.fade_out);
                     CustomTabsIntent customTabsIntent = intentBuilder.build();
                     customTabsIntent.launchUrl(MainActivity.this, uri);
-                }else {
-                    startActivity(Intent.createChooser(new Intent(Intent.ACTION_VIEW,uri),"Choose Browser..."));
+                } else {
+                    startActivity(Intent.createChooser(new Intent(Intent.ACTION_VIEW, uri), "Choose Browser..."));
                 }
 
             }
         });
     }
 
-    private void setupBannerSlider(){
+    private void setupBannerSlider() {
         bannerSlider = (BannerSlider) findViewById(R.id.banner_slider1);
         addBanners();
 
@@ -153,28 +157,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    private void addBanners(){
-        List<Banner> remoteBanners=new ArrayList<>();
+
+    private void addBanners() {
+        List<Banner> remoteBanners = new ArrayList<>();
         //Add banners using image urls
         remoteBanners.add(new RemoteBanner(
                 "https://assets.materialup.com/uploads/dcc07ea4-845a-463b-b5f0-4696574da5ed/preview.jpg"
-        ));
+                , this));
         remoteBanners.add(new RemoteBanner(
                 "https://assets.materialup.com/uploads/4b88d2c1-9f95-4c51-867b-bf977b0caa8c/preview.gif"
-        ));
+                , this));
         remoteBanners.add(new RemoteBanner(
                 "https://assets.materialup.com/uploads/76d63bbc-54a1-450a-a462-d90056be881b/preview.png"
-        ));
+                , this));
         remoteBanners.add(new RemoteBanner(
                 "https://assets.materialup.com/uploads/05e9b7d9-ade2-4aed-9cb4-9e24e5a3530d/preview.jpg"
-        ));
+                , this));
+        remoteBanners.add(new DrawableBanner(R.drawable.banner_creative_kids));
         bannerSlider.setBanners(remoteBanners);
-
     }
 
-    private void setupPageIndicatorChooser(){
+    private void setupPageIndicatorChooser() {
 
-        String[] pageIndicatorsLabels= getResources().getStringArray(R.array.page_indicators);
+        String[] pageIndicatorsLabels = getResources().getStringArray(R.array.page_indicators);
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item,
@@ -206,10 +211,27 @@ public class MainActivity extends AppCompatActivity {
                                         R.drawable.unselected_slide_indicator, null));
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
+    }
+
+    @Override
+    public void onLoadBanner(Context context, Banner banner, ImageView imageView) {
+        RemoteBanner remoteBanner = (RemoteBanner) banner;
+        if (remoteBanner.getErrorDrawable() == null && remoteBanner.getPlaceHolder() == null) {
+            Picasso.with(context).load(remoteBanner.getUrl()).into(imageView);
+        } else {
+            if (remoteBanner.getPlaceHolder() != null && remoteBanner.getErrorDrawable() != null) {
+                Picasso.with(context).load(remoteBanner.getUrl()).placeholder(remoteBanner.getPlaceHolder()).error(remoteBanner.getErrorDrawable()).into(imageView);
+            } else if (remoteBanner.getErrorDrawable() != null) {
+                Picasso.with(context).load(remoteBanner.getUrl()).error(remoteBanner.getErrorDrawable()).into(imageView);
+            } else if (remoteBanner.getPlaceHolder() != null) {
+                Picasso.with(context).load(remoteBanner.getUrl()).placeholder(remoteBanner.getPlaceHolder()).into(imageView);
+            }
+        }
     }
 }
