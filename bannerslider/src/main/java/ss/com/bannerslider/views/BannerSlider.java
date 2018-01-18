@@ -508,11 +508,13 @@ public class BannerSlider extends FrameLayout implements ViewPager.OnPageChangeL
         }
     }
 
-    public void removeAllBanners(){
-        this.banners.clear();
-        this.slideIndicatorsGroup.removeAllViews();
-        this.slideIndicatorsGroup.setSlides(0);
-        invalidate();
-        requestLayout();
+    public void removeAllBanners() { 
+        if (slideIndicatorsGroup != null) {
+            this.banners.clear();
+            this.slideIndicatorsGroup.removeAllViews();
+            this.slideIndicatorsGroup.setSlides(0);
+            invalidate();
+            requestLayout();
+       }
     }
 }
