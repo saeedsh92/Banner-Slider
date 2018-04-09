@@ -1,4 +1,4 @@
-package ss.com.bannerslider.views.indicators;
+package ss.com.bannerslider.indicators;
 
 import android.content.Context;
 import android.support.v4.content.res.ResourcesCompat;
@@ -13,6 +13,7 @@ import ss.com.bannerslider.R;
  */
 
 public class DashIndicator extends IndicatorShape {
+
 
     public DashIndicator(Context context, int indicatorSize, boolean mustAnimateChanges) {
         super(context, indicatorSize, mustAnimateChanges);
@@ -32,5 +33,6 @@ public class DashIndicator extends IndicatorShape {
         } else {
             setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.indicator_dash_unselected, null));
         }
+
     }
 }

@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="BannerSlider">
-        <attr name="indicatorSize" format="dimension" />
-        <attr name="selected_slideIndicator" format="reference" />
-        <attr name="unselected_slideIndicator" format="reference" />
-        <attr name="defaultIndicators" format="integer">
-            <enum name="circle" value="0" />
-            <enum name="square" value="1" />
-            <enum name="round_square" value="2"/>
-            <enum name="dash" value="3"/>
-        </attr>
-        <attr name="animateIndicators" format="boolean"/>
-        <attr name="interval" format="integer"/>
-        <attr name="loopSlides" format="boolean"/>
-        <attr name="defaultBanner" format="integer"/>
-        <attr name="emptyView" format="reference"/>
-        <attr name="hideIndicators" format="boolean"/>
+    <declare-styleable name="Slider">
+        <attr name="slider_hideIndicators" format="boolean" />
+        <attr name="slider_indicatorSize" format="dimension" />
+        <attr name="slider_selectedSlideIndicator" format="reference" />
+        <attr name="slider_unselectedSlideIndicator" format="reference" />
+        <attr name="slider_animateIndicators" format="boolean" />
+        <attr name="slider_interval" format="integer" />
+        <attr name="slider_loopSlides" format="boolean" />
+        <attr name="slider_defaultBanner" format="integer" />
+        <attr name="slider_emptyView" format="reference" />
     </declare-styleable>
 </resources>

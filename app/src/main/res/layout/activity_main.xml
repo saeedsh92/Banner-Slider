@@ -75,21 +75,22 @@
                             android:layout_toRightOf="@id/text_label_page_indicator" />
                     </RelativeLayout>
 
-                    <ss.com.bannerslider.views.BannerSlider
+                    <ss.com.bannerslider.Slider
                         android:id="@+id/banner_slider1"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@id/container_spinner"
-                        app:animateIndicators="true"
-                        app:defaultIndicators="circle"
-                        app:interval="0"
-                        app:loopSlides="true"
-                        />
+                        app:slider_animateIndicators="true"
+                        app:slider_emptyView="@layout/layout_empty_view"
+                        app:slider_indicatorSize="10dp"
+                        app:slider_interval="0"
+                        app:slider_loopSlides="true"
+                        app:slider_selectedSlideIndicator="@drawable/indicator_circle_selected"
+                        app:slider_unselectedSlideIndicator="@drawable/indicator_circle_unselected" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:layout_below="@id/banner_slider1"
                         android:orientation="vertical"
                         android:padding="12dp">
@@ -217,6 +218,7 @@
                             android:text="@string/label_hide_indicators"
 
                             android:textColor="@color/holo_gray" />
+
                     </LinearLayout>
                 </RelativeLayout>
 

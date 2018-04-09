@@ -1,4 +1,4 @@
-package ss.com.bannerslider.views.indicators;
+package ss.com.bannerslider.indicators;
 
 import android.content.Context;
 import android.view.Gravity;
@@ -68,7 +68,7 @@ public abstract class IndicatorShape extends ImageView {
     }
 
     private void scale(int duration) {
-        ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 1.3f, 1f, 1.3f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 1.1f, 1f, 1.1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         scaleAnimation.setDuration(duration);
         scaleAnimation.setFillAfter(true);
         startAnimation(scaleAnimation);
@@ -80,7 +80,7 @@ public abstract class IndicatorShape extends ImageView {
     }
 
     private void descale(int duration) {
-        ScaleAnimation scaleAnimation = new ScaleAnimation(1.3f, 1f, 1.3f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1.1f, 1f, 1.1f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         scaleAnimation.setDuration(duration);
         scaleAnimation.setFillAfter(true);
         startAnimation(scaleAnimation);

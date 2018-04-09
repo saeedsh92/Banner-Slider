@@ -1,4 +1,4 @@
-package ss.com.bannerslider.views.indicators;
+package ss.com.bannerslider.indicators;
 
 import android.content.Context;
 import android.os.Build;

@@ -1,8 +1,9 @@
-package ss.com.bannerslider.views;
+package ss.com.bannerslider;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -11,20 +12,19 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import ss.com.bannerslider.R;
-import ss.com.bannerslider.events.OnSlideChangeListener;
-import ss.com.bannerslider.views.indicators.CircleIndicator;
-import ss.com.bannerslider.views.indicators.DashIndicator;
-import ss.com.bannerslider.views.indicators.IndicatorShape;
-import ss.com.bannerslider.views.indicators.RoundSquareIndicator;
-import ss.com.bannerslider.views.indicators.SquareIndicator;
+import ss.com.bannerslider.event.OnSlideChangeListener;
+import ss.com.bannerslider.indicators.CircleIndicator;
+import ss.com.bannerslider.indicators.DashIndicator;
+import ss.com.bannerslider.indicators.IndicatorShape;
+import ss.com.bannerslider.indicators.RoundSquareIndicator;
+import ss.com.bannerslider.indicators.SquareIndicator;
 
 /**
  * @author S.Shahini
  * @since 11/26/16
  */
-
-public class SlideIndicatorsGroup extends LinearLayout implements OnSlideChangeListener {
+class SlideIndicatorsGroup extends LinearLayout implements OnSlideChangeListener {
+    private static final String TAG = "SlideIndicatorsGroup";
     private final Context context;
     private int slidesCount;
     private Drawable selectedSlideIndicator;
@@ -121,10 +121,7 @@ public class SlideIndicatorsGroup extends LinearLayout implements OnSlideChangeL
 
     public void setup() {
         setOrientation(LinearLayout.HORIZONTAL);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            setLayoutDirection(LAYOUT_DIRECTION_LTR);
-        }
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, indicatorSize * 2);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
         int margin = getResources().getDimensionPixelSize(R.dimen.default_indicator_margins) * 2;
         layoutParams.setMargins(0, 0, 0, margin);
@@ -133,6 +130,7 @@ public class SlideIndicatorsGroup extends LinearLayout implements OnSlideChangeL
 
     @Override
     public void onSlideChange(int selectedSlidePosition) {
+        Log.i(TAG, "onSlideChange: "+selectedSlidePosition);
         for (int i = 0; i < indicatorShapes.size(); i++) {
             if (i == selectedSlidePosition) {
                 indicatorShapes.get(i).onCheckedChange(true);
@@ -142,24 +140,12 @@ public class SlideIndicatorsGroup extends LinearLayout implements OnSlideChangeL
         }
     }
 
-    public void changeIndicator(int defaultIndicator) {
-        this.defaultIndicator = defaultIndicator;
-        selectedSlideIndicator = null;
-        unselectedSlideIndicator = null;
-        setSlides(slidesCount);
-    }
-
-    public void changeIndicator(Drawable selectedSlideIndicator, Drawable unselectedSlideIndicator) {
-        this.selectedSlideIndicator = selectedSlideIndicator;
-        this.unselectedSlideIndicator = unselectedSlideIndicator;
-        setSlides(slidesCount);
-    }
-
-    public void setMustAnimateIndicators(boolean mustAnimateIndicators){
-        this.mustAnimateIndicators=mustAnimateIndicators;
+    public void setMustAnimateIndicators(boolean shouldAnimate) {
+        this.mustAnimateIndicators = shouldAnimate;
         for (IndicatorShape indicatorShape :
                 indicatorShapes) {
-            indicatorShape.setMustAnimateChange(mustAnimateIndicators);
+            indicatorShape.setMustAnimateChange(shouldAnimate);
         }
     }
+
 }
