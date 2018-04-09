@@ -3,19 +3,18 @@ Banner slider is an easy to use library for making beautiful sliders in your and
 
 <img src="https://github.com/saeedsh92/Banner-Slider/blob/master/Screenshot_1481531647.png?raw=true" width="350">
 
-
 ## How to download
 ### Gradle
 add this line to your module build.gradle dependecies block:
 
-    compile 'com.ss.bannerslider:bannerslider:1.8.0'
+    compile 'com.ss.bannerslider:bannerslider:2.0.0'
 
 ### Maven
 
     <dependency>
       <groupId>com.ss.bannerslider</groupId>
       <artifactId>bannerslider</artifactId>
-      <version>1.6.1</version>
+      <version>2.0.0</version>
       <type>pom</type>
     </dependency>
 
@@ -31,85 +30,126 @@ add this line to your module build.gradle dependecies block:
 ```
 
 ### Java
+#### Step 1: extend SliderAdapter
+in first step you must create an adapter to adapt your data model with slides. example implemented adapter with 3 slides:
 ```java
-    BannerSlider bannerSlider = (BannerSlider) findViewById(R.id.banner_slider1);
-    List<Banner> banners=new ArrayList<>();
-    //add banner using image url
-    banners.add(new RemoteBanner("Put banner image url here ..."));
-    //add banner using resource drawable
-    banners.add(new DrawableBanner(R.drawable.yourDrawable));
-    bannerSlider.setBanners(banners);
-```
+public class MainSliderAdapter extends SliderAdapter {
 
+    @Override
+    public int getItemCount() {
+        return 3;
+    }
+
+    @Override
+    public void onBindImageSlide(int position, ImageSlideViewHolder viewHolder) {
+        switch (position) {
+            case 0:
+                viewHolder.bindImageSlide("https://assets.materialup.com/uploads/dcc07ea4-845a-463b-b5f0-4696574da5ed/preview.jpg");
+                break;
+            case 1:
+                viewHolder.bindImageSlide("https://assets.materialup.com/uploads/20ded50d-cc85-4e72-9ce3-452671cf7a6d/preview.jpg");
+                break;
+            case 2:
+                viewHolder.bindImageSlide("https://assets.materialup.com/uploads/76d63bbc-54a1-450a-a462-d90056be881b/preview.png");
+                break;
+        }
+    }
+}
+```
+#### Step 2: specify your image loading service
+you must specify image loading service for loading images(for better flexibility and prevent adding unnecessary libraries).
+for example if you work with picasso for loading images in your project, you must implement ImageLoadingService interface like below:
+```java
+public class PicassoImageLoadingService implements ImageLoadingService {
+    public Context context;
+
+    public PicassoImageLoadingService(Context context) {
+        this.context = context;
+    }
+
+    @Override
+    public void loadImage(String url, ImageView imageView) {
+        Picasso.with(context).load(url).into(imageView);
+    }
+
+    @Override
+    public void loadImage(int resource, ImageView imageView) {
+        Picasso.with(context).load(resource).into(imageView);
+    }
+
+    @Override
+    public void loadImage(String url, int placeHolder, int errorDrawable, ImageView imageView) {
+        Picasso.with(context).load(url).placeholder(placeHolder).error(errorDrawable).into(imageView);
+    }
+}
+```
+#### Step 3: set your adapter on slider
+```java
+slider = findViewById(R.id.banner_slider1);
+        slider.setAdapter(new MainSliderAdapter());
+```
 ## You want more customization?
-### Xml
 #### Changing slides automatically in specifed periods
 interval attribute get miliseconds.
 ```xml
-  app:interval="5000"
+  app:slider_interval="5000"
 ```
 
 
 #### Loop slides
 ```xml
-  app:loopSlides="true"
+  app:slider_loopSlides="true"
 ```
-
-
-#### Use default page indicators
-currently banner slider has 4 styles.
-```xml
-  app:defaultIndicators="circle"
-```
-
 
 #### Choose default banner to show up first
+```java
+slider.setSelectedSlide(2);
+```
+
 you must pass banner position to it:
 ```xml
-  app:defaultBanner="1"
+  app:slider_defaultBanner="1"
 ```
 
 
 #### Enable/disable indicators animations
 in default, animations are enabled
 ```xml
-  app:animateIndicators="true"
+  app:slider_animateIndicators="true"
 ```
 
 
 #### Use custom Indicators
 if you also set default indicators, then this attributes will ignored
 ```xml
-  app:selected_slideIndicator="@drawable/selected_slide_indicator"
-  app:unselected_slideIndicator="@drawable/unselected_slide_indicator"
+  app:slider_selectedSlideIndicator="@drawable/selected_slide_indicator"
+  app:slider_unselectedSlideIndicator="@drawable/unselected_slide_indicator"
 ```
 
 
 #### How set empty view, when banners not received from server yet?
 ```xml
-  app:emptyView="@layout/layout_empty_view"
+  app:slider_emptyView="@layout/layout_empty_view"
 ```
 
 
 #### Change indicator sizes
 ```xml
-  app:indicatorSize="12dp"
+  app:slider_indicatorSize="12dp"
 ```
 
 
 #### Set OnBannerClickListener
 ```java
-bannerSlider.setOnBannerClickListener(new OnBannerClickListener() {
-  @Override
-  public void onClick(int position) {
-      Toast.makeText(MainActivity.this, "Banner with position " + String.valueOf(position) + " clicked!", Toast.LENGTH_SHORT).show();
-    }
+slider.setOnSlideClickListener(new OnSlideClickListener() {
+            @Override
+            public void onSlideClick(int position) {
+                //Do what you want
+            }
+        });
   });
 ```
-#### Remove all banners
-```java
-    bannerSlider.removeAllBanners();
-```
+
 ## Licence
 Copyright 2016 Saeed Shahini
 
