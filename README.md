@@ -30,7 +30,7 @@ add this line to your module build.gradle dependecies block:
 ```
 
 ### Java
-#### Step 1: extend SliderAdapter
+### Step 1: extend SliderAdapter
 in first step you must create an adapter to adapt your data model with slides. example implemented adapter with 3 slides:
 ```java
 public class MainSliderAdapter extends SliderAdapter {
@@ -56,7 +56,7 @@ public class MainSliderAdapter extends SliderAdapter {
     }
 }
 ```
-#### Step 2: specify your image loading service
+### Step 2: specify your image loading service
 you must specify image loading service for loading images(for better flexibility and prevent adding unnecessary libraries).
 for example if you work with picasso for loading images in your project, you must implement ImageLoadingService interface like below:
 ```java
@@ -83,7 +83,12 @@ public class PicassoImageLoadingService implements ImageLoadingService {
     }
 }
 ```
-#### Step 3: set your adapter on slider
+#### Step 3: initialize slider in your Application class
+```java
+Slider.init(YOUR IMAGE LOADING SERVICE);
+```
+
+#### Step 4: set your adapter on slider
 ```java
 slider = findViewById(R.id.banner_slider1);
         slider.setAdapter(new MainSliderAdapter());
