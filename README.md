@@ -83,12 +83,12 @@ public class PicassoImageLoadingService implements ImageLoadingService {
     }
 }
 ```
-#### Step 3: initialize slider in your Application class
+### Step 3: initialize slider in your Application class
 ```java
 Slider.init(YOUR IMAGE LOADING SERVICE);
 ```
 
-#### Step 4: set your adapter on slider
+### Step 4: set your adapter on slider
 ```java
 slider = findViewById(R.id.banner_slider1);
         slider.setAdapter(new MainSliderAdapter());
