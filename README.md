@@ -22,7 +22,7 @@ add this line to your module build.gradle dependecies block:
 ### XML
 
 ```xml
-<ss.com.bannerslider.views.BannerSlider
+<ss.com.bannerslider.Slider
    android:id="@+id/banner_slider1"
    android:layout_width="match_parent"
    android:layout_height="wrap_content"
