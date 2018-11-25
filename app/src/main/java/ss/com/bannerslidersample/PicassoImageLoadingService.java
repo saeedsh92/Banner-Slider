@@ -5,6 +5,8 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+
 import ss.com.bannerslider.ImageLoadingService;
 
 /**
@@ -32,5 +34,10 @@ public class PicassoImageLoadingService implements ImageLoadingService {
     @Override
     public void loadImage(String url, int placeHolder, int errorDrawable, ImageView imageView) {
         Picasso.with(context).load(url).placeholder(placeHolder).error(errorDrawable).into(imageView);
+    }
+
+    @Override
+    public void loadImage(File file, ImageView imageView) {
+        Picasso.with(context).load(file).into(imageView);
     }
 }
