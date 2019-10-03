@@ -40,7 +40,7 @@ public abstract class IndicatorShape extends ImageView {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(indicatorSize, indicatorSize);
         int margin = getResources().getDimensionPixelSize(R.dimen.default_indicator_margins);
         layoutParams.gravity = Gravity.CENTER_VERTICAL;
-        layoutParams.setMargins(margin, 0, margin, 0);
+        layoutParams.setMargins(margin, margin, margin, margin);
         setLayoutParams(layoutParams);
     }
 

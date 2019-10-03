@@ -17,8 +17,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -81,6 +79,8 @@ public class Slider extends FrameLayout {
                         .selectedSlideIndicator(typedArray.getDrawable(R.styleable.Slider_slider_selectedSlideIndicator))
                         .unselectedSlideIndicator(typedArray.getDrawable(R.styleable.Slider_slider_unselectedSlideIndicator))
                         .hideIndicators(typedArray.getBoolean(R.styleable.Slider_slider_hideIndicators, false))
+                        .slideGravity(typedArray.getInteger(R.styleable.Slider_slider_indicatorsGravity,Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL))
+                        .slideOrientation(typedArray.getInteger(R.styleable.Slider_slider_indicatorOrientation,0))
                         .build();
             } catch (Exception e) {
                 Log.e("Slider", "setupViews: ".toString());
@@ -127,7 +127,9 @@ public class Slider extends FrameLayout {
                     config.unselectedSlideIndicator,
                     0,
                     config.indicatorSize,
-                    config.animateIndicators);
+                    config.animateIndicators,
+                    config.slideIndicatorGravity,
+                    config.slideIndicatorOrientation);
         }
     }
 
@@ -354,7 +356,7 @@ public class Slider extends FrameLayout {
             if (slideIndicatorsGroup != null) {
                 removeView(slideIndicatorsGroup);
             }
-            slideIndicatorsGroup = new SlideIndicatorsGroup(getContext(), config.selectedSlideIndicator, config.unselectedSlideIndicator, 0, config.indicatorSize, config.animateIndicators);
+            slideIndicatorsGroup = new SlideIndicatorsGroup(getContext(), config.selectedSlideIndicator, config.unselectedSlideIndicator, 0, config.indicatorSize, config.animateIndicators, config.slideIndicatorGravity, config.slideIndicatorOrientation);
             addView(slideIndicatorsGroup);
             for (int i = 0; i < sliderAdapter.getItemCount(); i++) {
                 slideIndicatorsGroup.onSlideAdd();

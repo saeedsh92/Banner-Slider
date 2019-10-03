@@ -85,6 +85,8 @@
                         app:slider_indicatorSize="10dp"
                         app:slider_interval="0"
                         app:slider_loopSlides="true"
+                        app:slider_indicatorsGravity="left|center_vertical"
+                        app:slider_indicatorOrientation="vertical"
                         app:slider_selectedSlideIndicator="@drawable/indicator_circle_selected"
                         app:slider_unselectedSlideIndicator="@drawable/indicator_circle_unselected" />
 
@@ -94,7 +96,6 @@
                         android:layout_below="@id/banner_slider1"
                         android:orientation="vertical"
                         android:padding="12dp">
-
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="70dp">

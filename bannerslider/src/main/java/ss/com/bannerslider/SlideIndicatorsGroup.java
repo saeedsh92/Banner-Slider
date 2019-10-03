@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -33,8 +32,10 @@ class SlideIndicatorsGroup extends LinearLayout implements OnSlideChangeListener
     private int indicatorSize;
     private boolean mustAnimateIndicators = true;
     private List<IndicatorShape> indicatorShapes = new ArrayList<>();
+    private int gravity;
+    private int orientation;
 
-    public SlideIndicatorsGroup(Context context, Drawable selectedSlideIndicator, Drawable unselectedSlideIndicator, int defaultIndicator, int indicatorSize, boolean mustAnimateIndicators) {
+    public SlideIndicatorsGroup(Context context, Drawable selectedSlideIndicator, Drawable unselectedSlideIndicator, int defaultIndicator, int indicatorSize, boolean mustAnimateIndicators, int gravity, int orientation) {
         super(context);
         this.context = context;
         this.selectedSlideIndicator = selectedSlideIndicator;
@@ -42,6 +43,8 @@ class SlideIndicatorsGroup extends LinearLayout implements OnSlideChangeListener
         this.defaultIndicator = defaultIndicator;
         this.indicatorSize = indicatorSize;
         this.mustAnimateIndicators = mustAnimateIndicators;
+        this.gravity=gravity;
+        this.orientation=orientation;
         setup();
     }
 
@@ -120,11 +123,11 @@ class SlideIndicatorsGroup extends LinearLayout implements OnSlideChangeListener
     }
 
     public void setup() {
-        setOrientation(LinearLayout.HORIZONTAL);
+        setOrientation(orientation);
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+        layoutParams.gravity = gravity;
         int margin = getResources().getDimensionPixelSize(R.dimen.default_indicator_margins) * 2;
-        layoutParams.setMargins(0, 0, 0, margin);
+        layoutParams.setMargins(margin, margin, margin, margin);
         setLayoutParams(layoutParams);
     }
 

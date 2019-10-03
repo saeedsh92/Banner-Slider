@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         setupPageIndicatorChooser();
         setupSettingsUi();
         slider = findViewById(R.id.banner_slider1);
-        slider.setIndicatorsOrientation(LinearLayout.VERTICAL);
         //delay for testing empty view functionality
         slider.postDelayed(new Runnable() {
             @Override
