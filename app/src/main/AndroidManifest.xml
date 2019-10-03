@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="ss.com.bannerslidersample">
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-sdk tools:overrideLibrary="android.support.customtabs" android:minSdkVersion="15"/>
     <application
         android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"

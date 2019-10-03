@@ -1,6 +1,6 @@
 package ss.com.bannerslider;
 
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DrawableRes;
 import android.widget.ImageView;
 
 /**

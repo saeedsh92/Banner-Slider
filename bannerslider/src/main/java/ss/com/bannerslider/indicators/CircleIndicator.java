@@ -2,7 +2,7 @@ package ss.com.bannerslider.indicators;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.v4.content.res.ResourcesCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import ss.com.bannerslider.R;
 
