@@ -1,5 +1,5 @@
-#Deprecated
-###I created this project in 2016. many things have changed and there are many other new great alternatives for creating sliders in android. so I decided to deprecate banner-slider.
+# Deprecated
+### I created this project in 2016. many things have changed and there are many other new great alternatives for creating sliders in android. so I decided to deprecate banner-slider.
 
 # Banner-Slider
 Banner slider is an easy to use library for making beautiful sliders in your android app.
