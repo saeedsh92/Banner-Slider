@@ -4,13 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -78,6 +79,8 @@ public class Slider extends FrameLayout {
                         .selectedSlideIndicator(typedArray.getDrawable(R.styleable.Slider_slider_selectedSlideIndicator))
                         .unselectedSlideIndicator(typedArray.getDrawable(R.styleable.Slider_slider_unselectedSlideIndicator))
                         .hideIndicators(typedArray.getBoolean(R.styleable.Slider_slider_hideIndicators, false))
+                        .slideGravity(typedArray.getInteger(R.styleable.Slider_slider_indicatorsGravity,Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL))
+                        .slideOrientation(typedArray.getInteger(R.styleable.Slider_slider_indicatorOrientation,0))
                         .build();
             } catch (Exception e) {
                 Log.e("Slider", "setupViews: ".toString());
@@ -124,7 +127,9 @@ public class Slider extends FrameLayout {
                     config.unselectedSlideIndicator,
                     0,
                     config.indicatorSize,
-                    config.animateIndicators);
+                    config.animateIndicators,
+                    config.slideIndicatorGravity,
+                    config.slideIndicatorOrientation);
         }
     }
 
@@ -284,7 +289,7 @@ public class Slider extends FrameLayout {
     private class SliderTimerTask extends TimerTask {
         @Override
         public void run() {
-            if (getContext() instanceof Activity) {
+            if (getContext() instanceof Activity&&adapter!=null&&adapter.getItemCount()>0) {
                 ((Activity) getContext()).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -351,7 +356,7 @@ public class Slider extends FrameLayout {
             if (slideIndicatorsGroup != null) {
                 removeView(slideIndicatorsGroup);
             }
-            slideIndicatorsGroup = new SlideIndicatorsGroup(getContext(), config.selectedSlideIndicator, config.unselectedSlideIndicator, 0, config.indicatorSize, config.animateIndicators);
+            slideIndicatorsGroup = new SlideIndicatorsGroup(getContext(), config.selectedSlideIndicator, config.unselectedSlideIndicator, 0, config.indicatorSize, config.animateIndicators, config.slideIndicatorGravity, config.slideIndicatorOrientation);
             addView(slideIndicatorsGroup);
             for (int i = 0; i < sliderAdapter.getItemCount(); i++) {
                 slideIndicatorsGroup.onSlideAdd();
@@ -381,4 +386,8 @@ public class Slider extends FrameLayout {
 
         refreshIndicators();
     }
+    public void setIndicatorsOrientation(int orientation){
+        slideIndicatorsGroup.setOrientation(orientation);
+    }
+
 }

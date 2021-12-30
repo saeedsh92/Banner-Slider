@@ -2,7 +2,9 @@ package ss.com.bannerslider;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
+import android.view.Gravity;
+
+import androidx.core.content.ContextCompat;
 
 /**
  * @author S.Shahini
@@ -19,6 +21,8 @@ public class Config {
     protected boolean animateIndicators = true;
     protected int slideChangeInterval = 0;
     protected int emptyView = NOT_SELECTED;
+    protected int slideIndicatorGravity;
+    protected int slideIndicatorOrientation;
 
     private Config() {
 
@@ -69,6 +73,14 @@ public class Config {
 
         public Builder emptyView(int emptyView) {
             config.emptyView = emptyView;
+            return this;
+        }
+        public Builder slideGravity(int gravity) {
+            config.slideIndicatorGravity=gravity;
+            return this;
+        }
+        public Builder slideOrientation(int orientation) {
+            config.slideIndicatorOrientation=orientation;
             return this;
         }
 

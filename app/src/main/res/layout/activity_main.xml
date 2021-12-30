@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
@@ -7,11 +7,11 @@
     android:layout_height="match_parent"
     tools:context="ss.com.bannerslidersample.MainActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize">
@@ -32,10 +32,10 @@
                 android:text="Banner Slider"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 style="@style/CardView.SS"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -85,6 +85,8 @@
                         app:slider_indicatorSize="10dp"
                         app:slider_interval="0"
                         app:slider_loopSlides="true"
+                        app:slider_indicatorsGravity="left|center_vertical"
+                        app:slider_indicatorOrientation="vertical"
                         app:slider_selectedSlideIndicator="@drawable/indicator_circle_selected"
                         app:slider_unselectedSlideIndicator="@drawable/indicator_circle_unselected" />
 
@@ -94,7 +96,6 @@
                         android:layout_below="@id/banner_slider1"
                         android:orientation="vertical"
                         android:padding="12dp">
-
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="70dp">
@@ -188,7 +189,7 @@
 
                         </RelativeLayout>
 
-                        <android.support.v7.widget.SwitchCompat
+                        <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/checkbox_loop_slides"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -198,7 +199,7 @@
                             android:text="@string/label_loop_slides"
                             android:textColor="@color/holo_gray" />
 
-                        <android.support.v7.widget.SwitchCompat
+                        <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/checkbox_animate_indicators"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -209,7 +210,7 @@
 
                             android:textColor="@color/holo_gray" />
 
-                        <android.support.v7.widget.SwitchCompat
+                        <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/checkbox_hide_indicators"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -223,8 +224,8 @@
                 </RelativeLayout>
 
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
