@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.io.File;
+
 import ss.com.bannerslider.Slider;
 
 public class ImageSlideViewHolder extends RecyclerView.ViewHolder {
@@ -29,4 +31,7 @@ public class ImageSlideViewHolder extends RecyclerView.ViewHolder {
         Slider.getImageLoadingService().loadImage(url, placeHolder, error, imageView);
     }
 
+    public void bindImageSlide(File file) {
+        Slider.getImageLoadingService().loadImage(file, imageView);
+    }
 }
